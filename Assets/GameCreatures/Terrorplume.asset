@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ed6b8ade281194b852759c4486ed58, type: 3}
+  m_Name: Terrorplume
+  m_EditorClassIdentifier: 
+  name_: Terrorplume
+  sprite_obj_: {fileID: 5239327054074240384, guid: 7ce8768418826224a8f83e2b3126ce97,
+    type: 3}
+  elem_type_: 4
+  max_hp_: 75
+  max_mp_: 50
+  attack_: 80
+  defense_: 85
+  speed_: 50
+  ability_list_:
+  - ability_base_: {fileID: 11400000, guid: 9f68fd1792ffd794f9fe98369300c683, type: 2}
+    level_: 1
+  - ability_base_: {fileID: 11400000, guid: 9c020702268f3ab4c8930ca298875134, type: 2}
+    level_: 5

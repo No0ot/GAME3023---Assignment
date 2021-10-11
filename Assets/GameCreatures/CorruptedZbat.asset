@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ed6b8ade281194b852759c4486ed58, type: 3}
+  m_Name: CorruptedZbat
+  m_EditorClassIdentifier: 
+  name_: Corrupted Zbat
+  sprite_obj_: {fileID: 1806726337499291698, guid: 49883663d8ab444489b97f81e4e8fbea,
+    type: 3}
+  elem_type_: 3
+  max_hp_: 40
+  max_mp_: 55
+  attack_: 45
+  defense_: 35
+  speed_: 55
+  ability_list_:
+  - ability_base_: {fileID: 11400000, guid: 9f68fd1792ffd794f9fe98369300c683, type: 2}
+    level_: 1
+  - ability_base_: {fileID: 11400000, guid: d92930a9a241d4f409dc6fc00ecc2fff, type: 2}
+    level_: 7
