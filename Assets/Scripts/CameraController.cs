@@ -13,6 +13,11 @@ public class CameraController : MonoBehaviour
         main_player_ = GameObject.Find("Player");
     }
 
+    private void Start()
+    {
+        transform.position = new Vector3(main_player_.transform.position.x, main_player_.transform.position.y, transform.position.z);
+    }
+
     private void FixedUpdate()
     {
         Vector3 target_pos = new Vector3(main_player_.transform.position.x + cam_offset_.x,

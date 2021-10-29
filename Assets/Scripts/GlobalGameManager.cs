@@ -19,6 +19,8 @@ public class GlobalGameManager : MonoBehaviour
         main_cam_ = Camera.main;
         player_.OnEncountered += StartBattle;
         battle_system_.OnBattleOver += EndBattle;
+
+        DoLoadGameData();
     }
 
     private void Start()
@@ -65,5 +67,17 @@ public class GlobalGameManager : MonoBehaviour
         game_state_ = GlobalEnums.GameState.FreeRoam;
         battle_system_.gameObject.SetActive(false);
         main_cam_.gameObject.SetActive(true);
+    }
+
+    public void DoSaveGameData()
+    {
+        SaveSystem.SaveGameData(player_);
+    }
+
+    public void DoLoadGameData()
+    {
+        SaveData data = SaveSystem.LoadGameData();
+
+        player_.transform.position = new Vector3(data.player_pos[0], data.player_pos[1], data.player_pos[2]);
     }
 }
