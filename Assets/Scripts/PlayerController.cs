@@ -15,6 +15,30 @@ public class PlayerController : MonoBehaviour
 
     public event Action OnEncountered;
 
+    void Start()
+    {
+        Debug.Log(Time.time);
+        StartCoroutine("DelayStart");
+        Debug.Log(Time.time);
+        OtherStart();
+
+    }
+    IEnumerable DelayStart()
+    {
+        Debug.Log("Lay start");
+        if (Time.time < 1.0f) {
+            Debug.Log(Time.time);
+            yield return new WaitForEndOfFrame(); }
+        Debug.Log("Lay end");
+    }
+    void OtherStart()
+
+    {
+        Debug.Log("meow");
+        //stuff
+
+    }
+
     private void Awake()
     {
         rb_ = GetComponent<Rigidbody2D>();

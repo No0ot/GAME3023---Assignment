@@ -73,4 +73,8 @@ public class Creature
     {
         mp_ = value;
     }
+    public List<Ability> GetAbilities()
+    { 
+        return abilities;
+    } 
 }

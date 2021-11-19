@@ -25,6 +25,9 @@ public class BattleHudController : MonoBehaviour
     [SerializeField] private GameObject enemy_placement_;
     private GameObject enemy_sprite_;
 
+    [SerializeField] private List<Button> player_action_list_ = new List<Button>();
+    [SerializeField] private List<Button> player_ability_list_ = new List<Button>();
+
     public void SetPlayerData(Creature player_creature)
     {
         player_name_.text = player_creature.GetBaseStats().GetName();
@@ -58,6 +61,45 @@ public class BattleHudController : MonoBehaviour
             enemy_sprite_.transform.localScale = new Vector3(Mathf.Abs(enemy_sprite_.transform.localScale.x) * -1f,
                                                             enemy_sprite_.transform.localScale.y,
                                                             enemy_sprite_.transform.localScale.z);
+        }
+    }
+
+    public void SetActiveActionList(bool value)
+    {
+        foreach (var item in player_action_list_)
+        {
+            item.gameObject.SetActive(value);
+        }
+    }
+
+    public void SetActiveAbilityList(bool value)
+    {
+        foreach (var item in player_ability_list_)
+        {
+            item.gameObject.SetActive(value);
+        }
+    }
+
+    public void SetInteractableAbilityList(bool value)
+    {
+        foreach (var item in player_ability_list_)
+        {
+            item.interactable = value;
+        }
+    }
+
+    public void SetAbilityNames(List<Ability> abilities)
+    {
+        for (int i = 0; i < player_ability_list_.Count; i++)
+        {
+            if (i<abilities.Count)
+            {
+                player_ability_list_[i].transform.GetComponentInChildren<Text>().text = abilities[i].GetBase().GetName();
+            }
+            else
+            {
+                player_ability_list_[i].transform.GetComponentInChildren<Text>().text = "NULL";
+            }
         }
     }
 }

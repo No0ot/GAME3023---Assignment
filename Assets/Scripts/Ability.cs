@@ -11,4 +11,9 @@ public class Ability
     {
         base_ = ability_base;
     }
+
+    public AbilityBase GetBase()
+    {
+        return base_;
+    }
 }
