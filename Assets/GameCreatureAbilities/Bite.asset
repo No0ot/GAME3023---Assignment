@@ -16,4 +16,4 @@ MonoBehaviour:
   elem_type_: 1
   power_: 60
   accuracy_: 100
-  mp_cost_: 4
+  mp_cost_: 0

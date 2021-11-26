@@ -24,7 +24,6 @@ public class BattleController : MonoBehaviour
         SetupBattle();
     }
 
-    // Update is called once per frame
     public void DoUpdate()
     {
         switch (state_)
@@ -35,8 +34,7 @@ public class BattleController : MonoBehaviour
                 break;
             case BattleState.kPlayerAbility:
                 break;
-            case BattleState.kEnemyAbility:
-                hud_.SetInteractableAbilityList(true);
+            case BattleState.kEnemyTurn:
                 break;
             case BattleState.kBusy:
                 break;
@@ -55,16 +53,78 @@ public class BattleController : MonoBehaviour
         hud_.SetActiveActionList(true);
         hud_.SetActiveAbilityList(false);
 
-        state_ = BattleState.kPlayerAction;
+        DoPlayerAction();
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(first_selected_button_);
+    }
+
+    public void DoPlayerAction()
+    {
+        state_ = BattleState.kPlayerAction;
+        hud_.SetInteractableAbilityList(true);
+    }
+
+    public void DoPlayerAbility(int idx)
+    {
+        Debug.Log(">>> Player used an ability!");
+        var ability = player_unit_.GetBattleCreature().GetAbilities()[idx];
+        if (!player_unit_.GetBattleCreature().SpendMP(ability)) //do nothing if not enough MP
+        {
+            Debug.Log(">>> Not enough MP!");
+            return;
+        }
+        state_ = BattleState.kBusy;
+        bool is_death = enemy_unit_.GetBattleCreature().TakeDamage(ability, player_unit_.GetBattleCreature());
+        hud_.UpdateMP();
+        hud_.UpdateHP();
+        if (is_death)
+        {
+            Debug.Log(">>> ENEMY DEATH!");
+            OnBattleOver(true);
+        }
+        else
+        {
+            //ENEMY TURN
+            hud_.SetInteractableAbilityList(false);
+            DoEnemyTurn();
+        }
+    }
+
+    public void DoEnemyTurn()
+    {
+        Debug.Log(">>> Enemy turn!");
+        state_ = BattleState.kEnemyTurn;
+        var ability = enemy_unit_.GetBattleCreature().GetRandAbility(); //do a random ability
+        if (ability != null)
+        {
+            bool is_death = player_unit_.GetBattleCreature().TakeDamage(ability, player_unit_.GetBattleCreature());
+            hud_.UpdateMP();
+            hud_.UpdateHP();
+            if (is_death)
+            {
+                Debug.Log(">>> PLAYER DEATH!");
+                OnBattleOver(true);
+            }
+            else
+            {
+                //PLAYER TURN
+                DoPlayerAction();
+            }
+        }
+        else
+        {
+            Debug.Log(">>> Enemy has no viable move");
+            //PLAYER TURN
+            DoPlayerAction();
+        }
     }
 
     public void OnFightSelected()
     {
         hud_.SetActiveActionList(false);
         hud_.SetActiveAbilityList(true);
+        hud_.SetInteractableAbilityList(true);
     }
 
     public void OnBackOutAbilityListSelected()
@@ -78,11 +138,11 @@ public class BattleController : MonoBehaviour
         OnBattleOver(true);
     }
 
-    public void OnAbilitySelected()
-    {
-        state_ = BattleState.kEnemyAbility;
-        hud_.SetInteractableAbilityList(false);
-    }
+    //public void OnAbilitySelected()
+    //{
+    //    state_ = BattleState.kEnemyAbility;
+    //    hud_.SetInteractableAbilityList(false);
+    //}
 }
 
 public enum BattleState
@@ -90,6 +150,6 @@ public enum BattleState
     kStart,
     kPlayerAction,
     kPlayerAbility,
-    kEnemyAbility,
+    kEnemyTurn,
     kBusy
 }

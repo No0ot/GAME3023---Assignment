@@ -55,7 +55,7 @@ public class Creature
     }
     public int GetMaxMP()
     {
-        return Mathf.FloorToInt((base_.GetMaxMP() * level_) / 100f); //NOT Pokemon formula
+        return Mathf.FloorToInt((base_.GetMaxMP() * level_) / 100f) + 10; //NOT Pokemon formula
     }
     public int GetHP()
     {
@@ -76,5 +76,68 @@ public class Creature
     public List<Ability> GetAbilities()
     { 
         return abilities;
-    } 
+    }
+
+    public bool CanSpendMP(Ability ability)
+    {
+        if (GetMP() >= ability.GetBase().GetMPCost())
+        {
+            return true; //enough MP
+        }
+        return false; //not enough MP
+    }
+
+    public bool SpendMP(Ability ability)
+    {
+        if (CanSpendMP(ability))
+        {
+            SetMP(GetMP() - ability.GetBase().GetMPCost());
+            return true; //used MP
+        }
+        return false; //not enough MP
+    }
+
+    public bool TakeDamage(Ability ability, Creature attacker)
+    {
+        // POKEMON FORMULA
+        float mod = Random.Range(0.85f, 1f);
+        float atk = (2 * attacker.GetLevel() + 10) / 250f;
+        float def = atk * ability.GetBase().GetPower() * ((float)attacker.GetAttack() / GetDefense()) + 2;
+        int damage = Mathf.FloorToInt(def * mod);
+
+        SetHP(GetHP() - damage);
+        if (GetHP() <= 0)
+        {
+            SetHP(0);
+            return true; //death
+        }
+        return false; //survives
+    }
+
+    public Ability GetRandAbility()
+    {
+        List<int> viable_idx = new List<int>();
+        bool is_viable = false;
+        int loop_count = 0; //emergency exit
+        for (int i = 0; i < GetAbilities().Count; i++)
+        {
+            viable_idx.Add(i);
+        }
+        while (viable_idx.Count > 0 || is_viable == false || loop_count < 50)
+        {
+            Debug.Log(">>> Choosing ability...");
+            int r = Random.Range(0, viable_idx.Count);
+            if (CanSpendMP(GetAbilities()[r]))
+            {
+                is_viable = true;
+                return GetAbilities()[r];
+            }
+            else
+            {
+                viable_idx.RemoveAt(r);
+            }
+            loop_count++;
+        }
+        return null;
+    }
 }

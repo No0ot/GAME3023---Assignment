@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BattleHudController : MonoBehaviour
 {
     //https://youtu.be/zKRMkD28-xY - Make A Game Like Pokemon in Unity | #7 - Battle System Setup
+    //https://youtu.be/Vm9PsK7r6UY - Make A Game Like Pokemon in Unity | #9 - Implementing Attacks in Battle System
 
     [SerializeField] private Text player_name_;
     [SerializeField] private Text player_level_;
@@ -28,6 +29,9 @@ public class BattleHudController : MonoBehaviour
     [SerializeField] private List<Button> player_action_list_ = new List<Button>();
     [SerializeField] private List<Button> player_ability_list_ = new List<Button>();
 
+    private Creature player_creature_;
+    private Creature enemy_creature_;
+
     public void SetPlayerData(Creature player_creature)
     {
         player_name_.text = player_creature.GetBaseStats().GetName();
@@ -44,6 +48,7 @@ public class BattleHudController : MonoBehaviour
                                                             player_sprite_.transform.localScale.y,
                                                             player_sprite_.transform.localScale.z);
         }
+        player_creature_ = player_creature;
     }
 
     public void SetEnemyData(Creature enemy_creature)
@@ -62,6 +67,23 @@ public class BattleHudController : MonoBehaviour
                                                             enemy_sprite_.transform.localScale.y,
                                                             enemy_sprite_.transform.localScale.z);
         }
+        enemy_creature_ = enemy_creature;
+    }
+
+    public void UpdateHP()
+    {
+        player_hp_bar_.value = (player_creature_.GetHP() / player_creature_.GetMaxHP());
+        player_hp_text_.text = "(" + player_creature_.GetHP() + "/" + player_creature_.GetMaxHP() + ")";
+        enemy_hp_bar_.value = (enemy_creature_.GetHP() / enemy_creature_.GetMaxHP());
+        enemy_hp_text_.text = "(" + enemy_creature_.GetHP() + "/" + enemy_creature_.GetMaxHP() + ")";
+    }
+
+    public void UpdateMP()
+    {
+        player_mp_bar_.value = (player_creature_.GetMP() / player_creature_.GetMaxMP());
+        player_mp_text_.text = "(" + player_creature_.GetMP() + "/" + player_creature_.GetMaxMP() + ")";
+        enemy_mp_bar_.value = (enemy_creature_.GetMP() / enemy_creature_.GetMaxMP());
+        enemy_mp_text_.text = "(" + enemy_creature_.GetMP() + "/" + enemy_creature_.GetMaxMP() + ")";
     }
 
     public void SetActiveActionList(bool value)
@@ -94,11 +116,13 @@ public class BattleHudController : MonoBehaviour
         {
             if (i<abilities.Count)
             {
-                player_ability_list_[i].transform.GetComponentInChildren<Text>().text = abilities[i].GetBase().GetName();
+                player_ability_list_[i].transform.GetComponentInChildren<Text>().text = abilities[i].GetBase().GetName(); //set button text
+                player_ability_list_[i].transform.GetComponent<BattleHudAbilityButtonController>().SetId(i);
             }
             else
             {
                 player_ability_list_[i].transform.GetComponentInChildren<Text>().text = "NULL";
+                player_ability_list_[i].transform.GetComponent<BattleHudAbilityButtonController>().SetId(-1);
             }
         }
     }
