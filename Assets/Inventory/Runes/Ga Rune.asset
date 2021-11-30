@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Ga Rune
   m_EditorClassIdentifier: 
   name: Ga Rune
-  description: A rune
-  icon: {fileID: -1391718783385845288, guid: 92b4e4f1ffb88a644a38238b8a730c3c, type: 3}
+  description: A moderate rune that prioritizes HP.
+  icon: {fileID: -3856858368253817325, guid: 92b4e4f1ffb88a644a38238b8a730c3c, type: 3}
   isConsumable: 0
   maxCount: 1
   gridSize: {x: 2, y: 1}
+  addedHP: 15
+  addedMP: 0
+  addedAttack: 2
+  addedDefense: 5
+  addedSpeed: 0

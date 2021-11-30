@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     public event Action OnEncountered;
 
+    public BattleUnit playerCreature;
+
     void Start()
     {
         Debug.Log(Time.time);

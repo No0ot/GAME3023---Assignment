@@ -31,6 +31,13 @@ public class Item : ScriptableObject
     public int maxCount;
     public Vector2 gridSize;
 
+    public int addedHP;
+    public int addedMP;
+    public int addedAttack;
+    public int addedDefense;
+    public int addedSpeed;
+
+
     //returns whether or not the Item was successfully used
     public bool Use()
     {

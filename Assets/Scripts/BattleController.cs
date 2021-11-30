@@ -11,7 +11,7 @@ public class BattleController : MonoBehaviour
     //https://youtu.be/joJTzYM72Dg - Make A Game Like Pokemon in Unity | #8 - Battle System - Action and Move Selection
 
     [SerializeField] private BattleHudController hud_;
-    [SerializeField] private BattleUnit player_unit_;
+    [SerializeField] public BattleUnit player_unit_;
     [SerializeField] private BattleUnit enemy_unit_;
     [SerializeField] private GameObject first_selected_button_;
 
