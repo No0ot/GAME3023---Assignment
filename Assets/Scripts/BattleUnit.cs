@@ -6,8 +6,8 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
 {
     //https://youtu.be/zKRMkD28-xY - Make A Game Like Pokemon in Unity | #7 - Battle System Setup
 
-    [SerializeField] private CreatureBase base_;
-    [SerializeField] private int level_;
+    [SerializeField] public CreatureBase base_;
+    [SerializeField] public int level_;
     [SerializeField] private bool is_player_;
 
     private Creature battle_creature_;

@@ -19,6 +19,17 @@ public class CreatureBase : ScriptableObject //Base stats for the creature, with
 
     [SerializeField] List<CreatureAbility> ability_list_;
 
+    private int id = -1;
+    public int Id
+    {
+        get { return id; }
+        set
+        {
+            id = value;
+            throw new ItemModifiedException("Oh no you dont!");
+        }
+    }
+
     public string GetName()
     {
         return name_;

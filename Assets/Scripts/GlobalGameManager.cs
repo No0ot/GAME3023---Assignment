@@ -58,7 +58,7 @@ public class GlobalGameManager : MonoBehaviour
     private void StartBattle()
     {
         game_state_ = GlobalEnums.GameState.Battle;
-        battle_system_.player_unit_ = player_.playerCreature;
+        //battle_system_.player_unit_ = player_.playerCreature;
         battle_system_.gameObject.SetActive(true);
         main_cam_.gameObject.SetActive(false);
     }

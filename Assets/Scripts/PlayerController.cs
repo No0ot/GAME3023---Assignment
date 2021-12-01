@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("BattleGrass"))
         {
-            if (UnityEngine.Random.Range(1,100) < 10)
+            if (UnityEngine.Random.Range(1,100) < 50)
             {
                 rb_.velocity = Vector2.zero; //stop player from moving when battle starts
                 OnEncountered();
