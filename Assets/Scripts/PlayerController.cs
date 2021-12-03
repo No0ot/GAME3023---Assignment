@@ -15,13 +15,15 @@ public class PlayerController : MonoBehaviour
 
     public event Action OnEncountered;
 
+    private SfxFootstepController footstep_controller_;
+
     void Start()
     {
         Debug.Log(Time.time);
         StartCoroutine("DelayStart");
         Debug.Log(Time.time);
         OtherStart();
-
+        footstep_controller_ = GetComponent<SfxFootstepController>();
     }
     IEnumerable DelayStart()
     {
@@ -100,9 +102,32 @@ public class PlayerController : MonoBehaviour
         {
             if (UnityEngine.Random.Range(1,100) < 10)
             {
-                rb_.velocity = Vector2.zero; //stop player from moving when battle starts
-                OnEncountered();
+                //rb_.velocity = Vector2.zero; //stop player from moving when battle starts
+                //OnEncountered();
             }
+            if (other.gameObject.GetComponent<SfxFootstepId>() != null)
+            {
+                footstep_controller_.SetCurrFootstepSfx(other.gameObject.GetComponent<SfxFootstepId>().GetFootstepId());
+                Debug.Log(">>> Stay");
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<SfxFootstepId>() != null)
+        {
+            footstep_controller_.SetCurrFootstepSfx(other.gameObject.GetComponent<SfxFootstepId>().GetFootstepId());
+            Debug.Log(">>> Enter");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<SfxFootstepId>() != null)
+        {
+            footstep_controller_.ResetFootstepSfx();
+            Debug.Log(">>> Exit");
         }
     }
 }
