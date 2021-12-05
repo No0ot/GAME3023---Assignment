@@ -38,8 +38,8 @@ public class BattleHudController : MonoBehaviour
         player_level_.text = "Lv." + player_creature.GetLevel();
         player_hp_bar_.value = (player_creature.GetHP() / player_creature.GetMaxHP());
         player_hp_text_.text = "(" + player_creature.GetHP() + "/" + player_creature.GetMaxHP() + ")";
-        player_mp_bar_.value = (player_creature.GetMP() / player_creature.GetMaxMP());
-        player_mp_text_.text = "(" + player_creature.GetMP() + "/" + player_creature.GetMaxMP() + ")";
+        player_mp_bar_.value = (player_creature.GetMP() / player_creature.GetMaxMPFromBase());
+        player_mp_text_.text = "(" + player_creature.GetMP() + "/" + player_creature.GetMaxMPFromBase() + ")";
         player_sprite_ = Instantiate(player_creature.GetBaseStats().GetSpriteObj(), player_placement_.transform);
         if (player_sprite_)
         {
@@ -57,8 +57,8 @@ public class BattleHudController : MonoBehaviour
         enemy_level_.text = "Lv." + enemy_creature.GetLevel();
         enemy_hp_bar_.value = (enemy_creature.GetHP() / enemy_creature.GetMaxHP());
         enemy_hp_text_.text = "(" + enemy_creature.GetHP() + "/" + enemy_creature.GetMaxHP() + ")";
-        enemy_mp_bar_.value = (enemy_creature.GetMP() / enemy_creature.GetMaxMP());
-        enemy_mp_text_.text = "(" + enemy_creature.GetMP() + "/" + enemy_creature.GetMaxMP() + ")";
+        enemy_mp_bar_.value = (enemy_creature.GetMP() / enemy_creature.GetMaxMPFromBase());
+        enemy_mp_text_.text = "(" + enemy_creature.GetMP() + "/" + enemy_creature.GetMaxMPFromBase() + ")";
         enemy_sprite_ = Instantiate(enemy_creature.GetBaseStats().GetSpriteObj(), enemy_placement_.transform);
         if (enemy_sprite_)
         {
@@ -80,10 +80,10 @@ public class BattleHudController : MonoBehaviour
 
     public void UpdateMP()
     {
-        player_mp_bar_.value = (player_creature_.GetMP() / player_creature_.GetMaxMP());
-        player_mp_text_.text = "(" + player_creature_.GetMP() + "/" + player_creature_.GetMaxMP() + ")";
-        enemy_mp_bar_.value = (enemy_creature_.GetMP() / enemy_creature_.GetMaxMP());
-        enemy_mp_text_.text = "(" + enemy_creature_.GetMP() + "/" + enemy_creature_.GetMaxMP() + ")";
+        player_mp_bar_.value = (player_creature_.GetMP() / player_creature_.GetMaxMPFromBase());
+        player_mp_text_.text = "(" + player_creature_.GetMP() + "/" + player_creature_.GetMaxMPFromBase() + ")";
+        enemy_mp_bar_.value = (enemy_creature_.GetMP() / enemy_creature_.GetMaxMPFromBase());
+        enemy_mp_text_.text = "(" + enemy_creature_.GetMP() + "/" + enemy_creature_.GetMaxMPFromBase() + ")";
     }
 
     public void SetActiveActionList(bool value)

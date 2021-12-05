@@ -14,6 +14,11 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
 
     public Container equippedRunes;
 
+    [Header("debug purposes")]
+    public float hp;
+    public float mp;
+
+
     public Creature GetBattleCreature()
     {
         return battle_creature_;
@@ -21,16 +26,7 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
 
     private void Start()
     {
-        battle_creature_ = new Creature(base_, level_);
 
-        if (equippedRunes)
-        {
-            foreach (GameObject rune in equippedRunes.itemList)
-            {
-                Item temp = rune.GetComponent<ItemInstance>().reference;
-                battle_creature_.AddEquippedStats(temp.addedHP, temp.addedMP, temp.addedAttack, temp.addedDefense, temp.addedSpeed);
-            }
-        }
     }
 
     public void Setup()
@@ -45,5 +41,6 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
                 battle_creature_.AddEquippedStats(temp.addedHP, temp.addedMP, temp.addedAttack, temp.addedDefense, temp.addedSpeed);
             }
         }
+        hp = battle_creature_.GetHP();
     }
 }

@@ -55,6 +55,7 @@ public class BattleController : MonoBehaviour
 
         hud_.SetPlayerData(player_unit_.GetBattleCreature());
         hud_.SetEnemyData(enemy_unit_.GetBattleCreature());
+
         hud_.SetAbilityNames(player_unit_.GetBattleCreature().GetAbilities());
         hud_.SetActiveActionList(true);
         hud_.SetActiveAbilityList(false);
@@ -104,7 +105,7 @@ public class BattleController : MonoBehaviour
         var ability = enemy_unit_.GetBattleCreature().GetRandAbility(); //do a random ability
         if (ability != null)
         {
-            bool is_death = player_unit_.GetBattleCreature().TakeDamage(ability, player_unit_.GetBattleCreature());
+            bool is_death = player_unit_.GetBattleCreature().TakeDamage(ability, enemy_unit_.GetBattleCreature());
             hud_.UpdateMP();
             hud_.UpdateHP();
             if (is_death)

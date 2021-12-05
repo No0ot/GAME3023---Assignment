@@ -104,8 +104,8 @@ public class PlayerController : MonoBehaviour
         {
             if (UnityEngine.Random.Range(1,100) < 50)
             {
-                //rb_.velocity = Vector2.zero; //stop player from moving when battle starts
-                //OnEncountered();
+                rb_.velocity = Vector2.zero; //stop player from moving when battle starts
+                OnEncountered();
             }
             if (other.gameObject.GetComponent<SfxFootstepId>() != null)
             {

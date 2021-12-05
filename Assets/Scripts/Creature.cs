@@ -7,8 +7,10 @@ public class Creature
     //Make A Game Like Pokemon in Unity | #5 - Creating Pokemons Using Scriptable Objects https://youtu.be/x8B_eXfcj6U
     private CreatureBase base_;
     private int level_;
-    private int hp_;
-    private int mp_;
+    private float maxHP_;
+    private float maxMP_;
+    private float hp_;
+    private float mp_;
     private int spd_;
     private int atk_;
     private int def_;
@@ -19,11 +21,13 @@ public class Creature
     {
         base_ = creature_base;
         level_ = level;
-        hp_ = GetMaxHP();
-        mp_ = GetMaxMP();
+        maxHP_ = GetMaxHPFromBase();
+        maxMP_ = GetMaxMPFromBase();
         spd_ = GetBaseSpeed();
         atk_ = GetBaseAttack();
         def_ = GetBaseDefense();
+        hp_ = maxHP_;
+        mp_ = maxMP_;
 
         abilities = new List<Ability>();
         foreach (var move in creature_base.GetAbilityList())
@@ -68,27 +72,36 @@ public class Creature
     {
         return spd_;
     }
-    public int GetMaxHP()
+    public int GetMaxHPFromBase()
     {
         return Mathf.FloorToInt((base_.GetMaxHP() * level_) / 100f) + 10; //Pokemon formula
     }
-    public int GetMaxMP()
+    public int GetMaxMPFromBase()
     {
         return Mathf.FloorToInt((base_.GetMaxMP() * level_) / 100f) + 10; //NOT Pokemon formula
     }
-    public int GetHP()
+
+    public float GetMaxHP()
+    {
+        return maxHP_;
+    }
+    public float GetMaxMP()
+    {
+        return maxMP_;
+    }
+    public float GetHP()
     {
         return hp_;
     }
-    public void SetHP(int value)
+    public void SetHP(float value)
     {
         hp_ = value;
     }
-    public int GetMP()
+    public float GetMP()
     {
         return mp_;
     }
-    public void SetMP(int value)
+    public void SetMP(float value)
     {
         mp_ = value;
     }
@@ -123,6 +136,8 @@ public class Creature
         float atk = (2 * attacker.GetLevel() + 10) / 250f;
         float def = atk * ability.GetBase().GetPower() * ((float)attacker.GetAttack() / GetDefense()) + 2;
         int damage = Mathf.FloorToInt(def * mod);
+
+        Debug.Log(damage);
 
         SetHP(GetHP() - damage);
         if (GetHP() <= 0)
@@ -162,8 +177,8 @@ public class Creature
 
     public void AddEquippedStats(int hp, int mp, int atk, int def, int spd)
     {
-        hp_ += hp;
-        mp_ += mp;
+        maxHP_ += hp;
+        maxMP_ += mp;
         atk += atk;
         def += def;
         spd += spd;
