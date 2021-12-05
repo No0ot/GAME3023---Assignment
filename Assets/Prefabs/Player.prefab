@@ -72,6 +72,68 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1260216714823122374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6104380370327065652}
+  - component: {fileID: 7179441600513144491}
+  - component: {fileID: 3240443004534838170}
+  m_Layer: 0
+  m_Name: BattleUnit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6104380370327065652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260216714823122374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7215958851745666947}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7179441600513144491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260216714823122374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb19cc57c3fec54a8567b9c60cea455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  base_: {fileID: 11400000, guid: abc5cc1c0225f5e44a921ab8945272e6, type: 2}
+  level_: 10
+  is_player_: 1
+  equippedRunes: {fileID: 3240443004534838170}
+--- !u!114 &3240443004534838170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260216714823122374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e1103b56ec5fac478113017765d9d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList: []
+  attachedItemGrid: {fileID: 0}
 --- !u!1 &7215958851745666948
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +170,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 6477953607508938293}
+  - {fileID: 6104380370327065652}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -195,6 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed_: 10
+  playerCreature: {fileID: 7179441600513144491}
 --- !u!50 &7215958851745666945
 Rigidbody2D:
   serializedVersion: 4
@@ -241,7 +305,7 @@ MonoBehaviour:
   - {x: -0.1, y: 0.7, z: 0}
   m_ShapePathHash: -184511855
   m_Mesh: {fileID: 0}
-  m_InstanceId: -226728
+  m_InstanceId: 40172
 --- !u!70 &8367700168737792964
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
