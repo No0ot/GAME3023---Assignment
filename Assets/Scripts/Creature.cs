@@ -9,6 +9,9 @@ public class Creature
     private int level_;
     private int hp_;
     private int mp_;
+    private int spd_;
+    private int atk_;
+    private int def_;
 
     public List<Ability> abilities;
 
@@ -18,6 +21,9 @@ public class Creature
         level_ = level;
         hp_ = GetMaxHP();
         mp_ = GetMaxMP();
+        spd_ = GetBaseSpeed();
+        atk_ = GetBaseAttack();
+        def_ = GetBaseDefense();
 
         abilities = new List<Ability>();
         foreach (var move in creature_base.GetAbilityList())
@@ -37,17 +43,30 @@ public class Creature
     {
         return level_;
     }
-    public int GetAttack()
+    public int GetBaseAttack()
     {
         return Mathf.FloorToInt((base_.GetAttack() * level_) / 100f) + 5; //Pokemon formula
     }
-    public int GetDefense()
+    public int GetBaseDefense()
     {
         return Mathf.FloorToInt((base_.GetDefense() * level_) / 100f) + 5; //Pokemon formula
     }
-    public int GetSpeed()
+    public int GetBaseSpeed()
     {
         return Mathf.FloorToInt((base_.GetSpeed() * level_) / 100f) + 5; //Pokemon formula
+    }
+
+    public int GetAttack()
+    {
+        return atk_;
+    }
+    public int GetDefense()
+    {
+        return def_;
+    }
+    public int GetSpeed()
+    {
+        return spd_;
     }
     public int GetMaxHP()
     {
@@ -139,5 +158,14 @@ public class Creature
             loop_count++;
         }
         return null;
+    }
+
+    public void AddEquippedStats(int hp, int mp, int atk, int def, int spd)
+    {
+        hp_ += hp;
+        mp_ += mp;
+        atk += atk;
+        def += def;
+        spd += spd;
     }
 }

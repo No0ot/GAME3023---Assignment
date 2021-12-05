@@ -11,10 +11,12 @@ public class BattleController : MonoBehaviour
     //https://youtu.be/joJTzYM72Dg - Make A Game Like Pokemon in Unity | #8 - Battle System - Action and Move Selection
 
     [SerializeField] private BattleHudController hud_;
-    [SerializeField] private BattleUnit player_unit_;
-    [SerializeField] private BattleUnit enemy_unit_;
+    [SerializeField] public BattleUnit player_unit_;
+    [SerializeField] public BattleUnit enemy_unit_;
     [SerializeField] private GameObject first_selected_button_;
 
+    [SerializeField] public GameObject playerPos;
+    [SerializeField] public GameObject enemyPos;
     private BattleState state_;
 
     public event Action<bool> OnBattleOver;
@@ -45,8 +47,12 @@ public class BattleController : MonoBehaviour
 
     public void SetupBattle()
     {
+        enemy_unit_ = CreatureManager.Instance.CreateCreature();
         player_unit_.Setup();
         enemy_unit_.Setup();
+        player_unit_.gameObject.transform.position = playerPos.transform.position;
+        enemy_unit_.gameObject.transform.position = enemyPos.transform.position;
+
         hud_.SetPlayerData(player_unit_.GetBattleCreature());
         hud_.SetEnemyData(enemy_unit_.GetBattleCreature());
         hud_.SetAbilityNames(player_unit_.GetBattleCreature().GetAbilities());
