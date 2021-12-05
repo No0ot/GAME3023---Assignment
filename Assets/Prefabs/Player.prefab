@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb19cc57c3fec54a8567b9c60cea455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  base_: {fileID: 11400000, guid: abab8157dc10c774a87eb95074e5ae46, type: 2}
+  base_: {fileID: 11400000, guid: abc5cc1c0225f5e44a921ab8945272e6, type: 2}
   level_: 10
   is_player_: 1
   equippedRunes: {fileID: 3240443004534838170}
@@ -305,7 +305,7 @@ MonoBehaviour:
   - {x: -0.1, y: 0.7, z: 0}
   m_ShapePathHash: -184511855
   m_Mesh: {fileID: 0}
-  m_InstanceId: -226728
+  m_InstanceId: 40172
 --- !u!70 &8367700168737792964
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

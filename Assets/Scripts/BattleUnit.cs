@@ -19,6 +19,20 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
         return battle_creature_;
     }
 
+    private void Start()
+    {
+        battle_creature_ = new Creature(base_, level_);
+
+        if (equippedRunes)
+        {
+            foreach (GameObject rune in equippedRunes.itemList)
+            {
+                Item temp = rune.GetComponent<ItemInstance>().reference;
+                battle_creature_.AddEquippedStats(temp.addedHP, temp.addedMP, temp.addedAttack, temp.addedDefense, temp.addedSpeed);
+            }
+        }
+    }
+
     public void Setup()
     {
         battle_creature_ = new Creature(base_, level_);
