@@ -10,7 +10,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerEnterHandler
+public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Item reference;
 
@@ -93,6 +93,19 @@ public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        if (!InGameMenuController.Instance.runeDetailsPanel.gameObject.activeInHierarchy)
+            InGameMenuController.Instance.runeDetailsPanel.gameObject.SetActive(true);
+
+        InGameMenuController.Instance.runeDetailsPanel.gameObject.GetComponent<RectTransform>().anchoredPosition = eventData.position;
+        InGameMenuController.Instance.runeDetailsPanel.itemRef = reference;
+        InGameMenuController.Instance.runeDetailsPanel.UpdateDetails();
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (InGameMenuController.Instance.runeDetailsPanel.gameObject.activeInHierarchy)
+            InGameMenuController.Instance.runeDetailsPanel.gameObject.SetActive(false);
+        //throw new System.NotImplementedException();
     }
 }

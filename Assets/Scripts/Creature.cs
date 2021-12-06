@@ -190,7 +190,6 @@ public class Creature
 
     public void AddEquippedStats(int hp, int mp, int atk, int def, int spd)
     {
-        Debug.Log(spd);
         maxHP_ += hp;
         maxMP_ += mp;
         hp_ += hp;
