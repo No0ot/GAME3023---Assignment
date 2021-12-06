@@ -87,6 +87,9 @@ public class Container : MonoBehaviour
 
         if (gameObject.GetComponent<BattleUnit>() != null)
             gameObject.GetComponent<BattleUnit>().Setup();
+
+        if (!attachedItemGrid.gameObject.activeInHierarchy)
+            item.gameObject.SetActive(false);
     }
 
     public void PlaceItem(ItemInstance item, ItemSlot passedSlot, ItemSlot initalSlot)

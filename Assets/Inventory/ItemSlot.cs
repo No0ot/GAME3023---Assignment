@@ -25,6 +25,9 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     public int id;
 
     [SerializeField]
+    bool isGarbage;
+
+    [SerializeField]
     private int itemCount = 0;
     public int ItemCount
     {
@@ -100,18 +103,26 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     }
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("dropped");
+        //Debug.Log("dropped");
         if (eventData.pointerDrag != null)
         {
             ItemInstance temp = eventData.pointerDrag.GetComponent<ItemInstance>();
-            //temp.gameObject.transform.SetParent(this.transform.parent.transform.parent);
-            temp.containerReference.RemoveItem(temp);
-            //temp.parentSlot.itemInSlot = null;
-            ItemSlot tempslot = temp.parentSlot;
-            temp.parentSlot = this;
-            temp.containerReference = temp.parentSlot.gridReference.containerReference;
-            temp.containerReference.PlaceItem(temp, temp.parentSlot, tempslot);
-            temp.PlaceItemInSlot();
+            if (!isGarbage)
+            {
+                //temp.gameObject.transform.SetParent(this.transform.parent.transform.parent);
+                temp.containerReference.RemoveItem(temp);
+                //temp.parentSlot.itemInSlot = null;
+                ItemSlot tempslot = temp.parentSlot;
+                temp.parentSlot = this;
+                temp.containerReference = temp.parentSlot.gridReference.containerReference;
+                temp.containerReference.PlaceItem(temp, temp.parentSlot, tempslot);
+                temp.PlaceItemInSlot();
+            }
+            else
+            {
+                temp.containerReference.RemoveItem(temp);
+                Destroy(eventData.pointerDrag.gameObject);
+            }
             //gridReference.
         }
     }

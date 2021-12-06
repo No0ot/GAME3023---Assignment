@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: El Rune
   description: A basic rune increasing all stats moderatly across the board
-  icon: {fileID: -1391718783385845288, guid: 92b4e4f1ffb88a644a38238b8a730c3c, type: 3}
+  icon: {fileID: 1790968847002425584, guid: 92b4e4f1ffb88a644a38238b8a730c3c, type: 3}
   isConsumable: 0
   maxCount: 1
-  gridSize: {x: 1, y: 2}
-  addedHP: 5
-  addedMP: 5
-  addedAttack: 5
-  addedDefense: 5
+  gridSize: {x: 1, y: 1}
+  addedHP: 7
+  addedMP: 7
+  addedAttack: 3
+  addedDefense: 3
   addedSpeed: 1

@@ -95,8 +95,13 @@ public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     {
         if (!InGameMenuController.Instance.runeDetailsPanel.gameObject.activeInHierarchy)
             InGameMenuController.Instance.runeDetailsPanel.gameObject.SetActive(true);
-
-        InGameMenuController.Instance.runeDetailsPanel.gameObject.GetComponent<RectTransform>().anchoredPosition = eventData.position;
+        Vector2 newPos;
+        Debug.Log(eventData.position.x);
+        if (eventData.position.x > 775f)
+           newPos = new Vector2(eventData.position.x - 100, eventData.position.y - 100);
+        else
+            newPos = new Vector2(eventData.position.x, eventData.position.y - 100);
+        InGameMenuController.Instance.runeDetailsPanel.gameObject.GetComponent<RectTransform>().position = newPos;
         InGameMenuController.Instance.runeDetailsPanel.itemRef = reference;
         InGameMenuController.Instance.runeDetailsPanel.UpdateDetails();
         //throw new System.NotImplementedException();

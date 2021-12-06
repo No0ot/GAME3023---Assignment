@@ -18,8 +18,8 @@ MonoBehaviour:
   isConsumable: 0
   maxCount: 1
   gridSize: {x: 2, y: 1}
-  addedHP: 15
-  addedMP: 0
-  addedAttack: 2
+  addedHP: 12
+  addedMP: 1
+  addedAttack: 3
   addedDefense: 5
   addedSpeed: 0
