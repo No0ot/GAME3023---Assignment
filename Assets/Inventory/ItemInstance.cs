@@ -10,7 +10,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
+public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerEnterHandler
 {
     public Item reference;
 
@@ -89,5 +89,10 @@ public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
         //Debug.Log(parentSlot.transform.GetComponent<RectTransform>().anchoredPosition);
 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
     }
 }

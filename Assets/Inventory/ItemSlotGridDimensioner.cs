@@ -21,6 +21,22 @@ public class ItemSlotGridDimensioner : MonoBehaviour
     public Container containerReference;
 
 
+    private void OnEnable()
+    {
+        foreach(GameObject item in containerReference.itemList)
+        {
+            item.SetActive(true);
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (GameObject item in containerReference.itemList)
+        {
+            item.SetActive(false);
+        }
+    }
+
     void Awake()
     {
         CreateGrid();

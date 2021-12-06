@@ -38,13 +38,20 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
     {
         if (equippedRunes)
         {
-            foreach (GameObject rune in equippedRunes.itemList)
-            {
-                Item temp = rune.GetComponent<ItemInstance>().reference;
-                battle_creature_.AddEquippedStats(temp.addedHP, temp.addedMP, temp.addedAttack, temp.addedDefense, temp.addedSpeed);
-            }
+            RefreshStats();
         }
         hp = battle_creature_.GetHP();
+    }
+
+    public void RefreshStats()
+    {
+        battle_creature_.ResetStats();
+
+        foreach (GameObject rune in equippedRunes.itemList)
+        {
+            Item temp = rune.GetComponent<ItemInstance>().reference;
+            battle_creature_.AddEquippedStats(temp.addedHP, temp.addedMP, temp.addedAttack, temp.addedDefense, temp.addedSpeed);
+        }
     }
 
     public void KillCreature()

@@ -84,6 +84,9 @@ public class Container : MonoBehaviour
             //currentSlot = startSlot;
 
         }
+
+        if (gameObject.GetComponent<BattleUnit>() != null)
+            gameObject.GetComponent<BattleUnit>().Setup();
     }
 
     public void PlaceItem(ItemInstance item, ItemSlot passedSlot, ItemSlot initalSlot)
@@ -103,7 +106,7 @@ public class Container : MonoBehaviour
 
                 startSlot = initalSlot;
                 item.containerReference = attachedItemGrid.containerReference;
-                temp.gameObject.transform.SetParent(startSlot.transform.parent.transform.parent);
+                //temp.gameObject.transform.SetParent(startSlot.transform.parent.transform.parent);
                 Debug.Log("not enough room");
                 break;
             }
@@ -162,6 +165,8 @@ public class Container : MonoBehaviour
             //currentSlot = startSlot;
 
         }
+        if (gameObject.GetComponent<BattleUnit>() != null)
+            gameObject.GetComponent<BattleUnit>().Setup();
     }
 
     public bool CheckIfFits(ItemInstance item, ItemSlot startSlot)
@@ -230,5 +235,7 @@ public class Container : MonoBehaviour
         attachedItemGrid.ResetIteminSlot(item);
 
         itemList.Remove(item.gameObject);
+        if (gameObject.GetComponent<BattleUnit>() != null)
+            gameObject.GetComponent<BattleUnit>().Setup();
     }
 }

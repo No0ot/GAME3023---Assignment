@@ -104,7 +104,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag != null)
         {
             ItemInstance temp = eventData.pointerDrag.GetComponent<ItemInstance>();
-            temp.gameObject.transform.SetParent(this.transform.parent.transform.parent);
+            //temp.gameObject.transform.SetParent(this.transform.parent.transform.parent);
             temp.containerReference.RemoveItem(temp);
             //temp.parentSlot.itemInSlot = null;
             ItemSlot tempslot = temp.parentSlot;

@@ -175,12 +175,28 @@ public class Creature
         return null;
     }
 
+    public void ResetStats()
+    {
+        maxHP_ = GetMaxHPFromBase();
+        maxMP_ = GetMaxMPFromBase();
+        spd_ = GetBaseSpeed();
+        atk_ = GetBaseAttack();
+        def_ = GetBaseDefense();
+        if (hp_ > maxHP_)
+            hp_ = maxHP_;
+        if (mp_ > maxMP_)
+            mp_ = maxMP_;
+    }
+
     public void AddEquippedStats(int hp, int mp, int atk, int def, int spd)
     {
+        Debug.Log(spd);
         maxHP_ += hp;
         maxMP_ += mp;
-        atk += atk;
-        def += def;
-        spd += spd;
+        hp_ += hp;
+        mp_ += mp;
+        atk_ += atk;
+        def_ += def;
+        spd_ += spd;
     }
 }

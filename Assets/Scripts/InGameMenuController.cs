@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuController : MonoBehaviour
+public class InGameMenuController : MonoBehaviour
 {
-    public BattleUnit playerMonReference;
+    [SerializeField] DetailsPanelScript detailsPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,6 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        detailsPanel.UpdateDetails();
     }
 }

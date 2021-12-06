@@ -23,7 +23,8 @@ public class ItemManager : MonoBehaviour
     public ItemInstance CreateItemInstance(Item item, int count, Container container)
     {
         
-        ItemInstance temp = Instantiate(itemInstancePrefab, this.gameObject.transform.parent.transform);
+       // ItemInstance temp = Instantiate(itemInstancePrefab, this.gameObject.transform.parent.transform);
+        ItemInstance temp = Instantiate(itemInstancePrefab, this.gameObject.transform);
         temp.Setup(item, count);
         ItemSlot startSlot = container.attachedItemGrid.GetItemSlot();
 
