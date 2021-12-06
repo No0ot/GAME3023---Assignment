@@ -12,13 +12,16 @@ public class CreatureManager : MonoBehaviour
 
     [SerializeField] CreatureTable table;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         instance = this;
         table.AssignCreatureIDs();
         creatureList = new List<GameObject>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     public GameObject getCreature()
@@ -42,10 +45,13 @@ public class CreatureManager : MonoBehaviour
         GameObject enemyObject = getCreature();
     
         enemyObject.SetActive(true);
-
+        
         BattleUnit temp = enemyObject.GetComponent<BattleUnit>();
-        temp.base_ = table.GetCreature(Random.Range(0, table.GetTable().Count));
+        int tempint = Random.Range(0, table.GetTable().Count);
+        Debug.Log(tempint);
+        temp.base_ = table.GetCreature(tempint);
         temp.level_ = Random.Range(0, 25);
+        temp.MakeNewCreature();
 
         return temp;
     }

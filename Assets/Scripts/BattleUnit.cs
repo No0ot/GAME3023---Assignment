@@ -26,13 +26,16 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
 
     private void Start()
     {
+        MakeNewCreature();
+    }
 
+    public void MakeNewCreature()
+    {
+        battle_creature_ = new Creature(base_, level_);
     }
 
     public void Setup()
     {
-        battle_creature_ = new Creature(base_, level_);
-
         if (equippedRunes)
         {
             foreach (GameObject rune in equippedRunes.itemList)
@@ -42,5 +45,10 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
             }
         }
         hp = battle_creature_.GetHP();
+    }
+
+    public void KillCreature()
+    {
+        battle_creature_ = null;
     }
 }

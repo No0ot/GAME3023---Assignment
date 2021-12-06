@@ -59,7 +59,9 @@ public class BattleHudController : MonoBehaviour
         enemy_hp_text_.text = "(" + enemy_creature.GetHP() + "/" + enemy_creature.GetMaxHP() + ")";
         enemy_mp_bar_.value = (enemy_creature.GetMP() / enemy_creature.GetMaxMPFromBase());
         enemy_mp_text_.text = "(" + enemy_creature.GetMP() + "/" + enemy_creature.GetMaxMPFromBase() + ")";
-        enemy_sprite_ = Instantiate(enemy_creature.GetBaseStats().GetSpriteObj(), enemy_placement_.transform);
+        if(enemy_sprite_ == null)
+            enemy_sprite_ = Instantiate(enemy_creature.GetBaseStats().GetSpriteObj(), enemy_placement_.transform);
+
         if (enemy_sprite_)
         {
             enemy_sprite_.transform.localPosition = new Vector3(0f, 0f, 0f);
@@ -125,5 +127,10 @@ public class BattleHudController : MonoBehaviour
                 player_ability_list_[i].transform.GetComponent<BattleHudAbilityButtonController>().SetId(-1);
             }
         }
+    }
+
+    public void ResetHud()
+    {
+        Destroy(enemy_sprite_);
     }
 }

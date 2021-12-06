@@ -19,12 +19,17 @@ public class BattleController : MonoBehaviour
     [SerializeField] public GameObject enemyPos;
     private BattleState state_;
 
-    public event Action<bool> OnBattleOver;
+    public bool battleStarted;
 
-    void Start()
-    {
-        SetupBattle();
-    }
+    public event Action<bool> OnBattleOver;
+    //private void OnEnable()
+    //{
+    //    SetupBattle();
+    //}
+    //void Start()
+    //{
+    //    SetupBattle();
+    //}
 
     public void DoUpdate()
     {
@@ -42,6 +47,15 @@ public class BattleController : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    public void CreateBattle()
+    {
+        if(!battleStarted)
+        {
+            SetupBattle();
+            battleStarted = true;
         }
     }
 
@@ -88,6 +102,8 @@ public class BattleController : MonoBehaviour
         if (is_death)
         {
             Debug.Log(">>> ENEMY DEATH!");
+            enemy_unit_.KillCreature();
+            enemy_unit_.gameObject.SetActive(false);
             OnBattleOver(true);
         }
         else
@@ -145,6 +161,11 @@ public class BattleController : MonoBehaviour
         OnBattleOver(true);
     }
 
+
+    public void ResetHud()
+    {
+        hud_.ResetHud();
+    }
     //public void OnAbilitySelected()
     //{
     //    state_ = BattleState.kEnemyAbility;

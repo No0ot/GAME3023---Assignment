@@ -58,9 +58,9 @@ public class GlobalGameManager : MonoBehaviour
     private void StartBattle()
     {
         game_state_ = GlobalEnums.GameState.Battle;
-        //battle_system_.player_unit_ = player_.playerCreature;
         battle_system_.gameObject.SetActive(true);
         main_cam_.gameObject.SetActive(false);
+        battle_system_.CreateBattle();
     }
 
     private void EndBattle(bool is_victory)
@@ -68,6 +68,8 @@ public class GlobalGameManager : MonoBehaviour
         game_state_ = GlobalEnums.GameState.FreeRoam;
         battle_system_.gameObject.SetActive(false);
         main_cam_.gameObject.SetActive(true);
+        battle_system_.battleStarted = false;
+        battle_system_.ResetHud();
     }
 
     public void DoSaveGameData()
