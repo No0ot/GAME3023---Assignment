@@ -9,15 +9,10 @@ public class DetailsPanelScript : MonoBehaviour
     public BattleUnit playerMonReference;
 
     [SerializeField] Image monPortrait;
-    [SerializeField] GameObject hpText;
     [SerializeField] TMP_Text hpNum;
-    [SerializeField] TMP_Text mpText;
     [SerializeField] TMP_Text mpNum;
-    [SerializeField] TMP_Text spdText;
     [SerializeField] TMP_Text spdNum;
-    [SerializeField] TMP_Text atkText;
     [SerializeField] TMP_Text atkNum;
-    [SerializeField] TMP_Text defText;
     [SerializeField] TMP_Text defNum;
     // Start is called before the first frame update
     
