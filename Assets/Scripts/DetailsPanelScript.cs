@@ -18,6 +18,7 @@ public class DetailsPanelScript : MonoBehaviour
     
     public void UpdateDetails()
     {
+        monPortrait.sprite = playerMonReference.GetBattleCreature().GetPortraitSprite();
         hpNum.text = playerMonReference.GetBattleCreature().GetHP() + " / " + playerMonReference.GetBattleCreature().GetMaxHP();
         mpNum.text = playerMonReference.GetBattleCreature().GetMP() + " / " + playerMonReference.GetBattleCreature().GetMaxMP();
         spdNum.text = playerMonReference.GetBattleCreature().GetSpeed() + "";

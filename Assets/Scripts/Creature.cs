@@ -110,6 +110,11 @@ public class Creature
         return abilities;
     }
 
+    public Sprite GetPortraitSprite()
+    {
+        return base_.portrait;
+    }
+
     public bool CanSpendMP(Ability ability)
     {
         if (GetMP() >= ability.GetBase().GetMPCost())

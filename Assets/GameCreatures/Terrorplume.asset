@@ -15,6 +15,8 @@ MonoBehaviour:
   name_: Terrorplume
   sprite_obj_: {fileID: 5239327054074240384, guid: 7ce8768418826224a8f83e2b3126ce97,
     type: 3}
+  portrait: {fileID: 4723107735738678597, guid: f8b30c2afe165d645b54d500a9c30862,
+    type: 3}
   elem_type_: 4
   max_hp_: 75
   max_mp_: 50

@@ -8,7 +8,7 @@ public class CreatureBase : ScriptableObject //Base stats for the creature, with
     //Make A Game Like Pokemon in Unity | #5 - Creating Pokemons Using Scriptable Objects https://youtu.be/x8B_eXfcj6U
     [SerializeField] private string name_;
     [SerializeField] private GameObject sprite_obj_;
-
+    public Sprite portrait;
     [SerializeField] private ElementType elem_type_;
 
     [SerializeField] private int max_hp_;

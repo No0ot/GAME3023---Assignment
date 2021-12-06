@@ -15,6 +15,8 @@ MonoBehaviour:
   name_: Corrupted Zbat
   sprite_obj_: {fileID: 1806726337499291698, guid: 49883663d8ab444489b97f81e4e8fbea,
     type: 3}
+  portrait: {fileID: -4795363162621231457, guid: 6d7cd4f7505dc674c891ca8946cfd98b,
+    type: 3}
   elem_type_: 3
   max_hp_: 40
   max_mp_: 55
