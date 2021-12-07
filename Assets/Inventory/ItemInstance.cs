@@ -96,7 +96,7 @@ public class ItemInstance : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         if (!InGameMenuController.Instance.runeDetailsPanel.gameObject.activeInHierarchy)
             InGameMenuController.Instance.runeDetailsPanel.gameObject.SetActive(true);
         Vector2 newPos;
-        Debug.Log(eventData.position.x);
+        //Debug.Log(eventData.position.x);
         if (eventData.position.x > 775f)
            newPos = new Vector2(eventData.position.x - 100, eventData.position.y - 100);
         else

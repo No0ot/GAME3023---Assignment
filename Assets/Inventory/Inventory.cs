@@ -23,14 +23,6 @@ public class Inventory : MonoBehaviour
         {
             AddItem(Random.Range(0, ItemManager.Instance.itemTable.GetTable().Count), 1) ;
         }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddItem(0, 5);
-            AddItem(0, 5);
-            AddItem(0, 5);
-            AddItem(0, 5);
-            AddItem(0, ItemManager.Instance.itemTable.GetItem(0).maxCount);
-        }
     }
 
     public void OpenContainer()

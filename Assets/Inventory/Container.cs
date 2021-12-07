@@ -241,4 +241,15 @@ public class Container : MonoBehaviour
         if (gameObject.GetComponent<BattleUnit>() != null)
             gameObject.GetComponent<BattleUnit>().Setup();
     }
+
+    public void ClearContainer()
+    {
+        foreach(GameObject item in itemList)
+        {
+            ItemInstance temp = item.GetComponent<ItemInstance>();
+            attachedItemGrid.ResetIteminSlot(temp);
+            Destroy(item);
+        }
+        itemList.Clear();
+    }
 }

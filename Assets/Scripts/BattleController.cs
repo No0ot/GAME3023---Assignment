@@ -17,6 +17,7 @@ public class BattleController : MonoBehaviour
 
     [SerializeField] public GameObject playerPos;
     [SerializeField] public GameObject enemyPos;
+    [SerializeField] RewardsScript rewardSystem;
     private BattleState state_;
 
     public bool battleStarted;
@@ -105,6 +106,7 @@ public class BattleController : MonoBehaviour
             enemy_unit_.KillCreature();
             enemy_unit_.gameObject.SetActive(false);
             OnBattleOver(true);
+            rewardSystem.GenerateRewards(enemy_unit_.level_);
         }
         else
         {
