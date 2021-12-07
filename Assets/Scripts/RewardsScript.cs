@@ -8,13 +8,14 @@ public class RewardsScript : MonoBehaviour
 
     private void Start()
     {
-        //gameObject.SetActive(false);
-        GenerateRunes(3);
-        CloseButtonClicked();
+        Invoke("DelayStart", 0.01f);
+       
     }
 
     public void GenerateRewards(int level)
     {
+        if(!gameObject.activeInHierarchy)
+            gameObject.SetActive(true);
         int numRunes;
 
         switch(level)
@@ -35,7 +36,6 @@ public class RewardsScript : MonoBehaviour
                 numRunes = Random.Range(0, 2);
                 break;
         }
-        gameObject.SetActive(true);
         GenerateRunes(numRunes);
     }
 
@@ -68,4 +68,11 @@ public class RewardsScript : MonoBehaviour
         rewardContainer.ClearContainer();
         gameObject.SetActive(false);
     }
+
+    void DelayStart()
+    {
+        GenerateRewards(16);
+        CloseButtonClicked();
+    }
+
 }
