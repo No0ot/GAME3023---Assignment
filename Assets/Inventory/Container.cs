@@ -8,7 +8,7 @@ public class Container : MonoBehaviour
     public ItemSlotGridDimensioner attachedItemGrid;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         itemList = new List<GameObject>();
     }
@@ -26,7 +26,7 @@ public class Container : MonoBehaviour
             if (!attachedItemGrid.GetItemSlot(tempInt))
             {
                 
-                Debug.Log("not enough room");
+                Debug.Log("not enough room containre");
                 return;
             }
 
