@@ -6,6 +6,8 @@ TagManager:
   tags:
   - BattleGrass
   - BattleSystem
+  - ContainerTrigger
+  - BossTrigger
   layers:
   - Default
   - TransparentFX

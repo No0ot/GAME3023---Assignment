@@ -60,6 +60,15 @@ public class BattleController : MonoBehaviour
         }
     }
 
+    public void CreateBattle(BattleUnit boss)
+    {
+        if (!battleStarted)
+        {
+            SetupBattle(boss);
+            battleStarted = true;
+        }
+    }
+
     public void SetupBattle()
     {
         enemy_unit_ = CreatureManager.Instance.CreateCreature();
@@ -72,7 +81,33 @@ public class BattleController : MonoBehaviour
         hud_.SetEnemyData(enemy_unit_.GetBattleCreature());
 
         hud_.ClearCombatLog();
-        hud_.UpdateCombatLog("You have encountered an enemy" + enemy_unit_.base_.GetName());
+        hud_.UpdateCombatLog("You have encountered an enemy " + enemy_unit_.base_.GetName());
+
+        hud_.SetAbilityNames(player_unit_.GetBattleCreature().GetAbilities());
+        hud_.SetActiveActionList(true);
+        hud_.SetActiveAbilityList(false);
+
+        DoPlayerAction();
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(first_selected_button_);
+    }
+
+    public void SetupBattle(BattleUnit boss)
+    {
+        boss.GetComponent<SpriteRenderer>().enabled = false;
+        enemy_unit_ = boss;
+        player_unit_.Setup();
+        enemy_unit_.Setup();
+
+        player_unit_.gameObject.transform.position = playerPos.transform.position;
+        enemy_unit_.gameObject.transform.position = enemyPos.transform.position;
+
+        hud_.SetPlayerData(player_unit_.GetBattleCreature());
+        hud_.SetEnemyData(enemy_unit_.GetBattleCreature());
+
+        hud_.ClearCombatLog();
+        hud_.UpdateCombatLog("You have encountered a Boss enemy " + enemy_unit_.base_.GetName());
 
         hud_.SetAbilityNames(player_unit_.GetBattleCreature().GetAbilities());
         hud_.SetActiveActionList(true);

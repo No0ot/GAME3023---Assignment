@@ -40,10 +40,10 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
 
     public void Setup()
     {
-        if (equippedRunes)
-        {
-            RefreshStats();
-        }
+        //if (equippedRunes)
+        //{
+        //    RefreshStats();
+        //}
 
         if (battle_creature_.GetHP() > 0)
         {

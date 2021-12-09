@@ -10,6 +10,8 @@ public class GlobalGameManager : MonoBehaviour
     [SerializeField] private BattleController battle_system_;
     private Camera main_cam_;
 
+    [SerializeField] private BattleUnit boss_;
+
     private GlobalEnums.GameState game_state_;
 
     private void Awake()
@@ -18,6 +20,7 @@ public class GlobalGameManager : MonoBehaviour
         //battle_system_ = GameObject.FindGameObjectsWithTag("BattleSystem")[0].GetComponent<BattleController>();
         main_cam_ = Camera.main;
         player_.OnEncountered += StartBattle;
+        player_.OnBossEncountered += StartBossBattle;
         battle_system_.OnBattleOver += EndBattle;
 
         DoLoadGameData();
@@ -53,6 +56,18 @@ public class GlobalGameManager : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void StartBossBattle()
+    {
+        if (battle_system_.battleStarted == false)
+        {
+            game_state_ = GlobalEnums.GameState.Battle;
+            battle_system_.gameObject.SetActive(true);
+            main_cam_.gameObject.SetActive(false);
+            battle_system_.CreateBattle(boss_);
+            SoundManager.Instance.PlayBattleMusic();
         }
     }
 

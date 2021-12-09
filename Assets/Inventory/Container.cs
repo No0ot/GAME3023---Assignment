@@ -86,7 +86,7 @@ public class Container : MonoBehaviour
         }
 
         if (gameObject.GetComponent<BattleUnit>() != null)
-            gameObject.GetComponent<BattleUnit>().Setup();
+            gameObject.GetComponent<BattleUnit>().RefreshStats();
 
         if (!attachedItemGrid.gameObject.activeInHierarchy)
             item.gameObject.SetActive(false);
@@ -168,7 +168,7 @@ public class Container : MonoBehaviour
 
         }
         if (gameObject.GetComponent<BattleUnit>() != null)
-            gameObject.GetComponent<BattleUnit>().Setup();
+            gameObject.GetComponent<BattleUnit>().RefreshStats();
     }
 
     public bool CheckIfFits(ItemInstance item, ItemSlot startSlot)

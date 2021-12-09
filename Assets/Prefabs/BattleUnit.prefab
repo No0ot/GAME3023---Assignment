@@ -49,6 +49,10 @@ MonoBehaviour:
   level_: 13
   is_player_: 0
   equippedRunes: {fileID: 0}
+  experience: 0
+  experienceNeeded: 0
+  hp: 0
+  mp: 0
 --- !u!212 &4504048217389207675
 SpriteRenderer:
   m_ObjectHideFlags: 0

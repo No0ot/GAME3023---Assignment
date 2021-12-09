@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private float encounter_cooldown_ = 0;
 
     public event Action OnEncountered;
+    public event Action OnBossEncountered;
 
     public BattleUnit playerCreature;
 
@@ -123,6 +124,13 @@ public class PlayerController : MonoBehaviour
                 footstep_controller_.SetCurrFootstepSfx(other.gameObject.GetComponent<SfxFootstepId>().GetFootstepId());
                 Debug.Log(">>> Stay");
             }
+        }
+        if (other.gameObject.CompareTag("BossTrigger"))
+        {
+            encounter_cooldown_ = 3.0f;
+            rb_.velocity = Vector2.zero; //stop player from moving when battle starts
+            animator_.SetFloat("Velocity", rb_.velocity.magnitude); //reset anim
+            OnBossEncountered();
         }
     }
 
