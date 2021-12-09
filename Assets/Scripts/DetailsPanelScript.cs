@@ -15,6 +15,8 @@ public class DetailsPanelScript : MonoBehaviour
     [SerializeField] TMP_Text atkNum;
     [SerializeField] TMP_Text defNum;
     [SerializeField] TMP_Text expNum;
+    [SerializeField] TMP_Text lvlNum;
+    [SerializeField] TMP_Text name;
     // Start is called before the first frame update
 
     public void UpdateDetails()
@@ -26,5 +28,7 @@ public class DetailsPanelScript : MonoBehaviour
         defNum.text = playerMonReference.GetBattleCreature().GetDefense() + "";
         atkNum.text = playerMonReference.GetBattleCreature().GetAttack() + "";
         expNum.text = playerMonReference.experience + " / " + playerMonReference.experienceNeeded;
+        lvlNum.text = playerMonReference.level_ + "";
+        name.text = playerMonReference.base_.GetName();
     }
 }

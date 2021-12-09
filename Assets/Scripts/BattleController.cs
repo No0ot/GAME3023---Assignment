@@ -71,6 +71,9 @@ public class BattleController : MonoBehaviour
         hud_.SetPlayerData(player_unit_.GetBattleCreature());
         hud_.SetEnemyData(enemy_unit_.GetBattleCreature());
 
+        hud_.ClearCombatLog();
+        hud_.UpdateCombatLog("You have encountered an enemy" + enemy_unit_.base_.GetName());
+
         hud_.SetAbilityNames(player_unit_.GetBattleCreature().GetAbilities());
         hud_.SetActiveActionList(true);
         hud_.SetActiveAbilityList(false);
@@ -93,11 +96,13 @@ public class BattleController : MonoBehaviour
         var ability = player_unit_.GetBattleCreature().GetAbilities()[idx];
         if (!player_unit_.GetBattleCreature().SpendMP(ability)) //do nothing if not enough MP
         {
+            hud_.UpdateCombatLog("Not enough MP!");
             Debug.Log(">>> Not enough MP!");
             yield break;
             Debug.Log(">>> Coroutine break!");
         }
         state_ = BattleState.kBusy;
+        hud_.UpdateCombatLog("Player's " + player_unit_.base_.GetName() + " used " + ability.GetBase().GetName() + " on enemy " + enemy_unit_.base_.GetName());
         player_unit_.GetBattleCreature().DealDamage(ability);
         Animator animator = hud_.GetPlayerSpriteObj().transform.GetComponent<Animator>();
         string anim_state = (player_unit_.GetBattleCreature().GetBaseStats().GetAnimString(ability));
@@ -117,9 +122,12 @@ public class BattleController : MonoBehaviour
 
         if (dam_result == DamageResult.Death)
         {
+            hud_.UpdateCombatLog("Enemy's " + enemy_unit_.base_.GetName() + " has fainted!");
+            hud_.UpdateCombatLog("Player Wins!");
+            hud_.UpdateCombatLog("Player's " + player_unit_.base_.GetName() + " gained "  + enemy_unit_.level_ * 5 + " experience!");
             Debug.Log(">>> ENEMY DEATH!");
             hud_.GetEnemySpriteObj().transform.GetComponent<Animator>().SetTrigger("Death");
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(3.0f);
             player_unit_.GainExperience(enemy_unit_.level_);
             enemy_unit_.KillCreature();
             enemy_unit_.gameObject.SetActive(false);
@@ -146,6 +154,10 @@ public class BattleController : MonoBehaviour
             Animator animator = hud_.GetEnemySpriteObj().transform.GetComponent<Animator>();
             string anim_state = (enemy_unit_.GetBattleCreature().GetBaseStats().GetAnimString(ability));
             animator.SetTrigger(anim_state);
+            if(ability.GetBase().GetAbilityType() != AbilityType.HealHp)
+                hud_.UpdateCombatLog("Enemys's " + enemy_unit_.base_.GetName() + " used " + ability.GetBase().GetName() + " on player's " + player_unit_.base_.GetName());
+            else
+                hud_.UpdateCombatLog("Enemys's " + enemy_unit_.base_.GetName() + " used " + ability.GetBase().GetName() + " on it's self!");
             yield return new WaitForSeconds(1.0f);
             DamageResult dam_result = player_unit_.GetBattleCreature().TakeDamage(ability, enemy_unit_.GetBattleCreature());
             switch (dam_result)
@@ -161,6 +173,8 @@ public class BattleController : MonoBehaviour
 
             if (dam_result == DamageResult.Death)
             {
+                hud_.UpdateCombatLog("Players's " + player_unit_.base_.GetName() + " has fainted!");
+                hud_.UpdateCombatLog("Enemy Wins!");
                 Debug.Log(">>> PLAYER DEATH!");
                 hud_.GetPlayerSpriteObj().transform.GetComponent<Animator>().SetTrigger("Death");
                 yield return new WaitForSeconds(1.0f);
@@ -175,6 +189,7 @@ public class BattleController : MonoBehaviour
         }
         else
         {
+            hud_.UpdateCombatLog("Enemy's " + enemy_unit_.base_.GetName() + " is stuck!");
             Debug.Log(">>> Enemy has no viable move");
             //PLAYER TURN
             DoPlayerAction();

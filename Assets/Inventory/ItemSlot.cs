@@ -116,7 +116,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 temp.parentSlot = this;
                 temp.containerReference = temp.parentSlot.gridReference.containerReference;
                 temp.containerReference.PlaceItem(temp, temp.parentSlot, tempslot);
-                temp.PlaceItemInSlot();
+                //temp.PlaceItemInSlot();
             }
             else
             {

@@ -106,7 +106,6 @@ public class Container : MonoBehaviour
             int tempInt = startSlot.id + 1;
             if (!attachedItemGrid.GetItemSlot(tempInt))
             {
-
                 startSlot = initalSlot;
                 item.containerReference = attachedItemGrid.containerReference;
                 //temp.gameObject.transform.SetParent(startSlot.transform.parent.transform.parent);

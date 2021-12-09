@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BattleHudController : MonoBehaviour
 {
@@ -26,12 +27,19 @@ public class BattleHudController : MonoBehaviour
     [SerializeField] private GameObject enemy_placement_;
     private GameObject enemy_sprite_;
 
+    [SerializeField] private TMP_Text combatLog;
+    private List<string> combatMessages;
+
     [SerializeField] private List<Button> player_action_list_ = new List<Button>();
     [SerializeField] private List<Button> player_ability_list_ = new List<Button>();
 
     //private Creature player_creature_;
     //private Creature enemy_creature_;
 
+    private void Start()
+    {
+        combatMessages = new List<string>();
+    }
     public void SetPlayerData(Creature player_creature)
     {
         player_name_.text = player_creature.GetBaseStats().GetName();
@@ -160,5 +168,28 @@ public class BattleHudController : MonoBehaviour
     public GameObject GetEnemySpriteObj()
     {
         return enemy_sprite_;
+    }
+
+    public void UpdateCombatLog(string newlog)
+    {
+        string newMsg = ">> " + newlog;
+        combatMessages.Add(newMsg);
+        if (combatMessages.Count > 5)
+        {
+            combatMessages.RemoveAt(0);
+        }
+        combatLog.text = "";
+        foreach (string msg in combatMessages)
+        {
+            combatLog.text += msg + "\n";
+        }
+    }
+
+    public void ClearCombatLog()
+    {
+        combatLog.text = "";
+        if (combatMessages == null)
+            combatMessages = new List<string>();
+        combatMessages.Clear();
     }
 }
