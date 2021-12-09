@@ -60,5 +60,6 @@ public enum AnimType
     Bite,
     Punch,
     Guard,
-    Slash
+    Slash,
+    Projectile
 }
