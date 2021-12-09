@@ -26,6 +26,7 @@ public class GlobalGameManager : MonoBehaviour
     private void Start()
     {
         battle_system_.gameObject.SetActive(false);
+        SoundManager.Instance.PlayOverworldMusic();
     }
 
     private void Update()
@@ -58,10 +59,14 @@ public class GlobalGameManager : MonoBehaviour
     private void StartBattle()
     {
         Debug.Log(">>> StartBattle!!!");
-        game_state_ = GlobalEnums.GameState.Battle;
-        battle_system_.gameObject.SetActive(true);
-        main_cam_.gameObject.SetActive(false);
-        battle_system_.CreateBattle();
+        if (battle_system_.battleStarted == false)
+        {
+            game_state_ = GlobalEnums.GameState.Battle;
+            battle_system_.gameObject.SetActive(true);
+            main_cam_.gameObject.SetActive(false);
+            battle_system_.CreateBattle();
+            SoundManager.Instance.PlayBattleMusic();
+        }
     }
 
     private void EndBattle(bool is_victory)
@@ -72,6 +77,7 @@ public class GlobalGameManager : MonoBehaviour
         battle_system_.battleStarted = false;
         battle_system_.ResetHud();
         game_state_ = GlobalEnums.GameState.FreeRoam;
+        SoundManager.Instance.PlayOverworldMusic();
     }
 
     public void DoSaveGameData()
