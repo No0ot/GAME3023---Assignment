@@ -14,6 +14,9 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
 
     public Container equippedRunes;
 
+    public float experience;
+    public float experienceNeeded;
+
     [Header("debug purposes")]
     public float hp;
     public float mp;
@@ -32,6 +35,7 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
     public void MakeNewCreature()
     {
         battle_creature_ = new Creature(base_, level_);
+        experienceNeeded = level_ * 10;
     }
 
     public void Setup()
@@ -66,5 +70,27 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
     public void KillCreature()
     {
         battle_creature_ = null;
+    }
+
+    public void CheatHeal()
+    {
+        battle_creature_.SetHP(battle_creature_.GetMaxHP());
+        battle_creature_.SetMP(battle_creature_.GetMaxMP());
+    }
+
+    public void GainExperience(int level)
+    {
+        experience += level * 5;
+        if (experience >= experienceNeeded)
+            LevelUP();
+    }
+
+    public void LevelUP()
+    {
+        level_++;
+        battle_creature_.LevelUp();
+        RefreshStats();
+        experience = 0;
+        experienceNeeded = level_ * 10;
     }
 }

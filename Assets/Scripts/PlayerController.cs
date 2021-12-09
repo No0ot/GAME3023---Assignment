@@ -133,6 +133,10 @@ public class PlayerController : MonoBehaviour
             footstep_controller_.SetCurrFootstepSfx(other.gameObject.GetComponent<SfxFootstepId>().GetFootstepId());
             Debug.Log(">>> Enter");
         }
+        if (other.gameObject.tag == "ContainerTrigger")
+        {
+            playerCreature.CheatHeal();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

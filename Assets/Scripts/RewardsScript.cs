@@ -8,7 +8,7 @@ public class RewardsScript : MonoBehaviour
 
     private void Start()
     {
-        Invoke("DelayStart", 0.01f);
+        Invoke("DelayStart", 0.2f);
        
     }
 
@@ -49,9 +49,9 @@ public class RewardsScript : MonoBehaviour
             int runeID;
             int runeQuality = Random.Range(1, 101);
             Debug.Log("Rune Roll: " + runeQuality);
-            if (runeQuality < 50)
+            if (runeQuality < 60)
                 runeID = Random.Range(0, 8);
-            else if (runeQuality < 80)
+            else if (runeQuality < 91)
                 runeID = Random.Range(8, 16);
             else
                 runeID = Random.Range(16, 24);

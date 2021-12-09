@@ -11,10 +11,6 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        //AddItem(3, 5);
-        //AddItem(0, 1);
-        //AddItem(0, 1);
-        //AddItem(0, 1);
     }
 
     private void Update()

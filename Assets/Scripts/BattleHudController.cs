@@ -39,7 +39,7 @@ public class BattleHudController : MonoBehaviour
         player_hp_bar_.value = (player_creature.GetHP() / player_creature.GetMaxHP());
         player_hp_text_.text = "(" + player_creature.GetHP() + "/" + player_creature.GetMaxHP() + ")";
         player_mp_bar_.value = (player_creature.GetMP() / player_creature.GetMaxMPFromBase());
-        player_mp_text_.text = "(" + player_creature.GetMP() + "/" + player_creature.GetMaxMPFromBase() + ")";
+        player_mp_text_.text = "(" + player_creature.GetMP() + "/" + player_creature.GetMaxMP() + ")";
         player_sprite_ = Instantiate(player_creature.GetBaseStats().GetSpriteObj(), player_placement_.transform);
         if (player_sprite_)
         {
@@ -58,7 +58,7 @@ public class BattleHudController : MonoBehaviour
         enemy_hp_bar_.value = (enemy_creature.GetHP() / enemy_creature.GetMaxHP());
         enemy_hp_text_.text = "(" + enemy_creature.GetHP() + "/" + enemy_creature.GetMaxHP() + ")";
         enemy_mp_bar_.value = (enemy_creature.GetMP() / enemy_creature.GetMaxMPFromBase());
-        enemy_mp_text_.text = "(" + enemy_creature.GetMP() + "/" + enemy_creature.GetMaxMPFromBase() + ")";
+        enemy_mp_text_.text = "(" + enemy_creature.GetMP() + "/" + enemy_creature.GetMaxMP() + ")";
         if(enemy_sprite_ == null)
             enemy_sprite_ = Instantiate(enemy_creature.GetBaseStats().GetSpriteObj(), enemy_placement_.transform);
 

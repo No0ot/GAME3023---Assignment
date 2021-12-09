@@ -252,6 +252,11 @@ public class Creature
         def_ += def;
         spd_ += spd;
     }
+
+    public void LevelUp()
+    {
+        level_++;
+    }
 }
 
 public enum DamageResult

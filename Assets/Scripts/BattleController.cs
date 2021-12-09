@@ -120,6 +120,7 @@ public class BattleController : MonoBehaviour
             Debug.Log(">>> ENEMY DEATH!");
             hud_.GetEnemySpriteObj().transform.GetComponent<Animator>().SetTrigger("Death");
             yield return new WaitForSeconds(1.0f);
+            player_unit_.GainExperience(enemy_unit_.level_);
             enemy_unit_.KillCreature();
             enemy_unit_.gameObject.SetActive(false);
             OnBattleOver(true);
