@@ -87,49 +87,84 @@ public class BattleController : MonoBehaviour
         hud_.SetInteractableAbilityList(true);
     }
 
-    public void DoPlayerAbility(int idx)
+    public IEnumerator DoPlayerAbility(int idx)
     {
         Debug.Log(">>> Player used an ability!");
         var ability = player_unit_.GetBattleCreature().GetAbilities()[idx];
         if (!player_unit_.GetBattleCreature().SpendMP(ability)) //do nothing if not enough MP
         {
             Debug.Log(">>> Not enough MP!");
-            return;
+            yield break;
+            Debug.Log(">>> Coroutine break!");
         }
         state_ = BattleState.kBusy;
-        bool is_death = enemy_unit_.GetBattleCreature().TakeDamage(ability, player_unit_.GetBattleCreature());
-        hud_.UpdateMP();
-        hud_.UpdateHP();
-        if (is_death)
+        player_unit_.GetBattleCreature().DealDamage(ability);
+        Animator animator = hud_.GetPlayerSpriteObj().transform.GetComponent<Animator>();
+        string anim_state = (player_unit_.GetBattleCreature().GetBaseStats().GetAnimString(ability));
+        animator.SetTrigger(anim_state);
+        yield return new WaitForSeconds(1.0f);
+        DamageResult dam_result = enemy_unit_.GetBattleCreature().TakeDamage(ability, player_unit_.GetBattleCreature());
+        switch (dam_result)
+        {
+            case DamageResult.TookDamage:
+            case DamageResult.Death:
+                hud_.GetEnemySpriteObj().transform.GetComponent<Animator>().SetTrigger("TakeHit");
+                yield return new WaitForSeconds(1.0f);
+                break;
+        }
+        hud_.UpdateMP(player_unit_.GetBattleCreature(), enemy_unit_.GetBattleCreature());
+        hud_.UpdateHP(player_unit_.GetBattleCreature(), enemy_unit_.GetBattleCreature());
+
+        if (dam_result == DamageResult.Death)
         {
             Debug.Log(">>> ENEMY DEATH!");
+            hud_.GetEnemySpriteObj().transform.GetComponent<Animator>().SetTrigger("Death");
+            yield return new WaitForSeconds(1.0f);
             enemy_unit_.KillCreature();
             enemy_unit_.gameObject.SetActive(false);
             OnBattleOver(true);
             rewardSystem.GenerateRewards(enemy_unit_.level_);
+            yield break;
         }
         else
         {
             //ENEMY TURN
             hud_.SetInteractableAbilityList(false);
-            DoEnemyTurn();
+            StartCoroutine(DoEnemyTurn());
         }
     }
 
-    public void DoEnemyTurn()
+    public IEnumerator DoEnemyTurn()
     {
         Debug.Log(">>> Enemy turn!");
         state_ = BattleState.kEnemyTurn;
         var ability = enemy_unit_.GetBattleCreature().GetRandAbility(); //do a random ability
         if (ability != null)
         {
-            bool is_death = player_unit_.GetBattleCreature().TakeDamage(ability, enemy_unit_.GetBattleCreature());
-            hud_.UpdateMP();
-            hud_.UpdateHP();
-            if (is_death)
+            enemy_unit_.GetBattleCreature().DealDamage(ability);
+            Animator animator = hud_.GetEnemySpriteObj().transform.GetComponent<Animator>();
+            string anim_state = (enemy_unit_.GetBattleCreature().GetBaseStats().GetAnimString(ability));
+            animator.SetTrigger(anim_state);
+            yield return new WaitForSeconds(1.0f);
+            DamageResult dam_result = player_unit_.GetBattleCreature().TakeDamage(ability, enemy_unit_.GetBattleCreature());
+            switch (dam_result)
+            {
+                case DamageResult.TookDamage:
+                case DamageResult.Death:
+                    hud_.GetPlayerSpriteObj().transform.GetComponent<Animator>().SetTrigger("TakeHit");
+                    yield return new WaitForSeconds(1.0f);
+                    break;
+            }
+            hud_.UpdateMP(player_unit_.GetBattleCreature(), enemy_unit_.GetBattleCreature());
+            hud_.UpdateHP(player_unit_.GetBattleCreature(), enemy_unit_.GetBattleCreature());
+
+            if (dam_result == DamageResult.Death)
             {
                 Debug.Log(">>> PLAYER DEATH!");
-                OnBattleOver(true);
+                hud_.GetPlayerSpriteObj().transform.GetComponent<Animator>().SetTrigger("Death");
+                yield return new WaitForSeconds(1.0f);
+                OnBattleOver(false);
+                yield break;
             }
             else
             {

@@ -40,7 +40,16 @@ public class BattleUnit : MonoBehaviour //The actual creature that the player ha
         {
             RefreshStats();
         }
-        hp = battle_creature_.GetHP();
+
+        if (battle_creature_.GetHP() > 0)
+        {
+            hp = battle_creature_.GetHP();
+        }
+        else
+        {
+            battle_creature_.SetHP(1);
+            hp = battle_creature_.GetHP();
+        }
     }
 
     public void RefreshStats()

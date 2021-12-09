@@ -95,7 +95,7 @@ public class Creature
     }
     public void SetHP(float value)
     {
-        hp_ = value;
+        hp_ = (value > maxHP_) ? maxHP_ : value;
     }
     public float GetMP()
     {
@@ -103,7 +103,7 @@ public class Creature
     }
     public void SetMP(float value)
     {
-        mp_ = value;
+        mp_ = (value > maxMP_) ? maxMP_ : value;
     }
     public List<Ability> GetAbilities()
     { 
@@ -134,23 +134,72 @@ public class Creature
         return false; //not enough MP
     }
 
-    public bool TakeDamage(Ability ability, Creature attacker)
+    public bool DealDamage(Ability ability)
+    {
+        // POKEMON FORMULA
+        float mod = Random.Range(0.85f, 1f);
+        float atk = (2 * GetLevel() + 10) / 250f;
+        float def = atk * ability.GetBase().GetPower() * ((float)GetAttack() / GetDefense()) + 2;
+        int damage = Mathf.FloorToInt(def * mod);
+        AbilityType type = ability.GetBase().GetAbilityType();
+        switch (type)
+        {
+            case AbilityType.Normal:
+                break;
+            case AbilityType.HealHp:
+                float heal_amount = (float)ability.GetBase().GetPower() / (float)GetMaxHP() * 100.0f;
+                SetHP(GetHP() + heal_amount);
+                break;
+            case AbilityType.DrainMp:
+                break;
+            case AbilityType.OneShot:
+                break;
+        }
+        return false;
+    }
+
+    public DamageResult TakeDamage(Ability ability, Creature attacker)
     {
         // POKEMON FORMULA
         float mod = Random.Range(0.85f, 1f);
         float atk = (2 * attacker.GetLevel() + 10) / 250f;
         float def = atk * ability.GetBase().GetPower() * ((float)attacker.GetAttack() / GetDefense()) + 2;
-        int damage = Mathf.FloorToInt(def * mod);
-
-        Debug.Log(damage);
-
-        SetHP(GetHP() - damage);
-        if (GetHP() <= 0)
+        float damage = Mathf.FloorToInt(def * mod);
+        AbilityType type = ability.GetBase().GetAbilityType();
+        switch (type)
         {
-            SetHP(0);
-            return true; //death
+            case AbilityType.Normal:
+                SetHP(GetHP() - damage);
+                if (GetHP() <= 0)
+                {
+                    SetHP(0);
+                    return DamageResult.Death; //death
+                }
+                break;
+            case AbilityType.HealHp:
+                return DamageResult.NoDamage;
+                break;
+            case AbilityType.DrainMp:
+                float pre_mp = GetMP();
+                SetMP(GetMP() - ability.GetBase().GetPower());
+                if (GetMP() <= 0)
+                {
+                    SetMP(0);
+                }
+                float post_mp = GetMP();
+                float attacker_gained_mp = pre_mp - post_mp;
+                attacker.SetMP(attacker.GetMP() + attacker_gained_mp);
+                break;
+            case AbilityType.OneShot:
+                SetHP(GetHP() - damage);
+                if (GetHP() <= 0)
+                {
+                    SetHP(0);
+                    return DamageResult.Death; //death
+                }
+                break;
         }
-        return false; //survives
+        return DamageResult.TookDamage; //survives
     }
 
     public Ability GetRandAbility()
@@ -203,4 +252,11 @@ public class Creature
         def_ += def;
         spd_ += spd;
     }
+}
+
+public enum DamageResult
+{
+    NoDamage,
+    TookDamage,
+    Death
 }

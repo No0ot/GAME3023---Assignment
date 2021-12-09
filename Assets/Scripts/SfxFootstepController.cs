@@ -14,7 +14,7 @@ public class SfxFootstepController : MonoBehaviour
         curr_footstep_ = footstep_sfx_list_[0];
     }
 
-    private void PlayFootstepSfx()
+    private void PlayFootstepSfx() //used by anim events
     {
         audio_.PlayOneShot(curr_footstep_);
     }

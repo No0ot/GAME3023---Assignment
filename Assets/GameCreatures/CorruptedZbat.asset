@@ -28,3 +28,10 @@ MonoBehaviour:
     level_: 1
   - ability_base_: {fileID: 11400000, guid: d92930a9a241d4f409dc6fc00ecc2fff, type: 2}
     level_: 7
+  anim_dict_:
+  - anim_type: 0
+    anim_state: Idle
+  - anim_type: 1
+    anim_state: Attack1
+  - anim_type: 2
+    anim_state: Attack2

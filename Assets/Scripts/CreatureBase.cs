@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "GameCreature", menuName = "GameCreature/Create new GameCreature")]
 public class CreatureBase : ScriptableObject //Base stats for the creature, without any scaling from the creature's level
@@ -18,6 +19,15 @@ public class CreatureBase : ScriptableObject //Base stats for the creature, with
     [SerializeField] private int speed_;
 
     [SerializeField] List<CreatureAbility> ability_list_;
+
+    //https://docs.unity3d.com/ScriptReference/Serializable.html
+    [Serializable]
+    public struct AbilityAnimDict
+    {
+        public AnimType anim_type;
+        public string anim_state;
+    }
+    [SerializeField] private List<AbilityAnimDict> anim_dict_;
 
     private int id = -1;
     public int Id
@@ -61,6 +71,17 @@ public class CreatureBase : ScriptableObject //Base stats for the creature, with
     public List<CreatureAbility> GetAbilityList()
     {
         return ability_list_;
+    }
+    public string GetAnimString(Ability ability)
+    {
+        foreach (var item in anim_dict_)
+        {
+            if (item.anim_type == ability.GetBase().GetAnimType())
+            {
+                return item.anim_state;
+            }
+        }
+        return "Idle";
     }
 }
 

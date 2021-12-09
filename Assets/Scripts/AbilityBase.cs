@@ -13,6 +13,8 @@ public class AbilityBase : ScriptableObject
     [SerializeField] private int power_;
     [SerializeField] private int accuracy_;
     [SerializeField] private int mp_cost_;
+    [SerializeField] private AbilityType ability_type_;
+    [SerializeField] private AnimType anim_type_;
 
     public string GetName()
     {
@@ -34,4 +36,29 @@ public class AbilityBase : ScriptableObject
     {
         return mp_cost_;
     }
+    public AbilityType GetAbilityType()
+    {
+        return ability_type_;
+    }
+    public AnimType GetAnimType()
+    {
+        return anim_type_;
+    }
+}
+
+public enum AbilityType
+{
+    Normal,
+    HealHp,
+    DrainMp,
+    OneShot
+}
+
+public enum AnimType
+{
+    Default,
+    Bite,
+    Punch,
+    Guard,
+    Slash
 }

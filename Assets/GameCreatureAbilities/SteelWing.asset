@@ -17,3 +17,5 @@ MonoBehaviour:
   power_: 70
   accuracy_: 90
   mp_cost_: 10
+  ability_type_: 0
+  anim_type_: 2

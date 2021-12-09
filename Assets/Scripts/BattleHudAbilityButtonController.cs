@@ -26,7 +26,7 @@ public class BattleHudAbilityButtonController : MonoBehaviour
     {
         if (id_ != -1)
         {
-            battle_controller_.DoPlayerAbility(id_);
+            StartCoroutine(battle_controller_.DoPlayerAbility(id_));
         }
     }
 }

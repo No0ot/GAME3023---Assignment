@@ -15,3 +15,5 @@ MonoBehaviour:
   table:
   - {fileID: 11400000, guid: abab8157dc10c774a87eb95074e5ae46, type: 2}
   - {fileID: 11400000, guid: abc5cc1c0225f5e44a921ab8945272e6, type: 2}
+  - {fileID: 11400000, guid: ecc8d842a7031ed41acbc62509d162ca, type: 2}
+  - {fileID: 11400000, guid: fd57c73f5051e6b44ae7abd9a018ecb0, type: 2}

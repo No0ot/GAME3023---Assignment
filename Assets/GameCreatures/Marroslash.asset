@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ed6b8ade281194b852759c4486ed58, type: 3}
+  m_Name: Marroslash
+  m_EditorClassIdentifier: 
+  name_: MarroSlash
+  sprite_obj_: {fileID: 5239327054074240384, guid: 7dba0ea357e00774ab113b56da6b89a2,
+    type: 3}
+  portrait: {fileID: 4723107735738678597, guid: 1018b0ba13578bf459bd254ae1a2be99,
+    type: 3}
+  elem_type_: 4
+  max_hp_: 60
+  max_mp_: 80
+  attack_: 80
+  defense_: 110
+  speed_: 45
+  ability_list_:
+  - ability_base_: {fileID: 11400000, guid: ccd020fa9a886f749b7c4d0a59c3f57c, type: 2}
+    level_: 1
+  - ability_base_: {fileID: 11400000, guid: 65ff61a76a5168741aed95ce01ccc12a, type: 2}
+    level_: 5
+  - ability_base_: {fileID: 11400000, guid: d1b1ab140164e0c409c3f1c53e6388c2, type: 2}
+    level_: 10
+  - ability_base_: {fileID: 11400000, guid: 20560334fb3bf054bb22ef3118518661, type: 2}
+    level_: 15
+  anim_dict_:
+  - anim_type: 0
+    anim_state: Idle
+  - anim_type: 1
+    anim_state: Attack2
+  - anim_type: 2
+    anim_state: Attack2
+  - anim_type: 4
+    anim_state: Attack1
+  - anim_type: 3
+    anim_state: Guard

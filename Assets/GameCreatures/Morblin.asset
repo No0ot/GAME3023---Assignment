@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ed6b8ade281194b852759c4486ed58, type: 3}
+  m_Name: Morblin
+  m_EditorClassIdentifier: 
+  name_: Morblin
+  sprite_obj_: {fileID: 5239327054074240384, guid: 00577d8e268ca214990df365cdd20f59,
+    type: 3}
+  portrait: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae,
+    type: 3}
+  elem_type_: 1
+  max_hp_: 65
+  max_mp_: 60
+  attack_: 60
+  defense_: 45
+  speed_: 70
+  ability_list_:
+  - ability_base_: {fileID: 11400000, guid: ccd020fa9a886f749b7c4d0a59c3f57c, type: 2}
+    level_: 1
+  - ability_base_: {fileID: 11400000, guid: d1b1ab140164e0c409c3f1c53e6388c2, type: 2}
+    level_: 5
+  - ability_base_: {fileID: 11400000, guid: d92930a9a241d4f409dc6fc00ecc2fff, type: 2}
+    level_: 10
+  anim_dict_:
+  - anim_type: 0
+    anim_state: Idle
+  - anim_type: 1
+    anim_state: Attack2
+  - anim_type: 2
+    anim_state: Attack1
+  - anim_type: 4
+    anim_state: Attack1

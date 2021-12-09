@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator_;
     private Vector2 move_dir_;
     private Vector2 last_move_dir_;
+    private float encounter_cooldown_ = 0;
 
     public event Action OnEncountered;
 
@@ -51,6 +52,10 @@ public class PlayerController : MonoBehaviour
 
     public void DoUpdate()
     {
+        if (encounter_cooldown_ > 0)
+        {
+            encounter_cooldown_ -= Time.deltaTime;
+        }
         ProcessInputs();
         //Move();
         Animate();
@@ -100,11 +105,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (encounter_cooldown_ > 0)
+        {
+            return;
+        }
         if (other.gameObject.CompareTag("BattleGrass"))
         {
-            if (UnityEngine.Random.Range(1,100) < 50)
+            if (UnityEngine.Random.Range(1,100) < 40)
             {
+                encounter_cooldown_ = 3.0f;
                 rb_.velocity = Vector2.zero; //stop player from moving when battle starts
+                animator_.SetFloat("Velocity", rb_.velocity.magnitude); //reset anim
                 OnEncountered();
             }
             if (other.gameObject.GetComponent<SfxFootstepId>() != null)

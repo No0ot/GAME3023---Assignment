@@ -19,11 +19,6 @@ public class CreatureManager : MonoBehaviour
         creatureList = new List<GameObject>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     public GameObject getCreature()
     {
         foreach (GameObject enemy in creatureList)
@@ -50,7 +45,7 @@ public class CreatureManager : MonoBehaviour
         int tempint = Random.Range(0, table.GetTable().Count);
         Debug.Log(tempint);
         temp.base_ = table.GetCreature(tempint);
-        temp.level_ = Random.Range(0, 25);
+        temp.level_ = Random.Range(0, 17);
         temp.MakeNewCreature();
 
         return temp;

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name_: Bite
   elem_type_: 1
-  power_: 60
+  power_: 30
   accuracy_: 100
   mp_cost_: 0
+  ability_type_: 0
+  anim_type_: 1

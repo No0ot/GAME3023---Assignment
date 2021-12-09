@@ -29,8 +29,8 @@ public class BattleHudController : MonoBehaviour
     [SerializeField] private List<Button> player_action_list_ = new List<Button>();
     [SerializeField] private List<Button> player_ability_list_ = new List<Button>();
 
-    private Creature player_creature_;
-    private Creature enemy_creature_;
+    //private Creature player_creature_;
+    //private Creature enemy_creature_;
 
     public void SetPlayerData(Creature player_creature)
     {
@@ -48,7 +48,7 @@ public class BattleHudController : MonoBehaviour
                                                             player_sprite_.transform.localScale.y,
                                                             player_sprite_.transform.localScale.z);
         }
-        player_creature_ = player_creature;
+        //player_creature_ = player_creature;
     }
 
     public void SetEnemyData(Creature enemy_creature)
@@ -69,23 +69,40 @@ public class BattleHudController : MonoBehaviour
                                                             enemy_sprite_.transform.localScale.y,
                                                             enemy_sprite_.transform.localScale.z);
         }
-        enemy_creature_ = enemy_creature;
+        //enemy_creature_ = enemy_creature;
     }
 
-    public void UpdateHP()
+    public void UpdateHP(Creature player_creature, Creature enemy_creature)
     {
-        player_hp_bar_.value = (player_creature_.GetHP() / player_creature_.GetMaxHP());
-        player_hp_text_.text = "(" + player_creature_.GetHP() + "/" + player_creature_.GetMaxHP() + ")";
-        enemy_hp_bar_.value = (enemy_creature_.GetHP() / enemy_creature_.GetMaxHP());
-        enemy_hp_text_.text = "(" + enemy_creature_.GetHP() + "/" + enemy_creature_.GetMaxHP() + ")";
+        //player_hp_bar_.value = (player_creature.GetHP() / player_creature.GetMaxHP());
+        StartCoroutine(SetSliderValueSmooth(player_hp_bar_, (player_creature.GetHP() / player_creature.GetMaxHP()) ));
+        player_hp_text_.text = "(" + player_creature.GetHP() + "/" + player_creature.GetMaxHP() + ")";
+        //enemy_hp_bar_.value = (enemy_creature.GetHP() / enemy_creature.GetMaxHP());
+        StartCoroutine(SetSliderValueSmooth(enemy_hp_bar_, (enemy_creature.GetHP() / enemy_creature.GetMaxHP()) ));
+        enemy_hp_text_.text = "(" + enemy_creature.GetHP() + "/" + enemy_creature.GetMaxHP() + ")";
     }
 
-    public void UpdateMP()
+    public void UpdateMP(Creature player_creature, Creature enemy_creature)
     {
-        player_mp_bar_.value = (player_creature_.GetMP() / player_creature_.GetMaxMPFromBase());
-        player_mp_text_.text = "(" + player_creature_.GetMP() + "/" + player_creature_.GetMaxMPFromBase() + ")";
-        enemy_mp_bar_.value = (enemy_creature_.GetMP() / enemy_creature_.GetMaxMPFromBase());
-        enemy_mp_text_.text = "(" + enemy_creature_.GetMP() + "/" + enemy_creature_.GetMaxMPFromBase() + ")";
+        //player_mp_bar_.value = (player_creature.GetMP() / player_creature.GetMaxMPFromBase());
+        StartCoroutine(SetSliderValueSmooth(player_mp_bar_, (player_creature.GetMP() / player_creature.GetMaxMP()) ));
+        player_mp_text_.text = "(" + player_creature.GetMP() + "/" + player_creature.GetMaxMP() + ")";
+        //enemy_mp_bar_.value = (enemy_creature.GetMP() / enemy_creature.GetMaxMPFromBase());
+        StartCoroutine(SetSliderValueSmooth(enemy_mp_bar_, (enemy_creature.GetMP() / enemy_creature.GetMaxMP()) ));
+        enemy_mp_text_.text = "(" + enemy_creature.GetMP() + "/" + enemy_creature.GetMaxMP() + ")";
+    }
+
+    public IEnumerator SetSliderValueSmooth(Slider slider, float new_value)
+    {
+        float curr_value = slider.value;
+        float change_amount = curr_value - new_value;
+        while (curr_value - new_value > Mathf.Epsilon)
+        {
+            curr_value -= change_amount * Time.deltaTime;
+            slider.value = curr_value;
+            yield return null;
+        }
+        slider.value = new_value;
     }
 
     public void SetActiveActionList(bool value)
@@ -132,5 +149,16 @@ public class BattleHudController : MonoBehaviour
     public void ResetHud()
     {
         Destroy(enemy_sprite_);
+        Destroy(player_sprite_);
+    }
+
+    public GameObject GetPlayerSpriteObj()
+    {
+        return player_sprite_; 
+    }
+
+    public GameObject GetEnemySpriteObj()
+    {
+        return enemy_sprite_;
     }
 }
