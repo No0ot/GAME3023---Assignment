@@ -16,6 +16,6 @@ MonoBehaviour:
   elem_type_: 2
   power_: 9999
   accuracy_: 5
-  mp_cost_: 20
+  mp_cost_: 10
   ability_type_: 3
   anim_type_: 2

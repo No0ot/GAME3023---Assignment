@@ -160,6 +160,10 @@ public class Creature
 
     public DamageResult TakeDamage(Ability ability, Creature attacker)
     {
+        if (UnityEngine.Random.Range(1,101) > ability.GetBase().GetAccuracy())
+        {
+            return DamageResult.MissedDamage;
+        }
         // POKEMON FORMULA
         float mod = Random.Range(0.85f, 1f);
         float atk = (2 * attacker.GetLevel() + 10) / 250f;
@@ -263,5 +267,6 @@ public enum DamageResult
 {
     NoDamage,
     TookDamage,
-    Death
+    Death,
+    MissedDamage
 }

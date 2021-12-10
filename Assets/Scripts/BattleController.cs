@@ -87,7 +87,18 @@ public class BattleController : MonoBehaviour
         hud_.SetActiveActionList(true);
         hud_.SetActiveAbilityList(false);
 
-        DoPlayerAction();
+        // SPEED CHECK
+        //DoPlayerAction();
+        if (player_unit_.GetBattleCreature().GetSpeed() >= enemy_unit_.GetBattleCreature().GetSpeed())
+        {
+            hud_.UpdateCombatLog("Player gets 1st turn.");
+            DoPlayerAction();
+        }
+        else
+        {
+            hud_.UpdateCombatLog("Enemy gets 1st turn!");
+            StartCoroutine(DoEnemyTurn());
+        }
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(first_selected_button_);
@@ -146,6 +157,10 @@ public class BattleController : MonoBehaviour
         DamageResult dam_result = enemy_unit_.GetBattleCreature().TakeDamage(ability, player_unit_.GetBattleCreature());
         switch (dam_result)
         {
+            case DamageResult.MissedDamage:
+                hud_.UpdateCombatLog("Player's " + player_unit_.base_.GetName() + " MISSSED!");
+                yield return new WaitForSeconds(1.0f);
+                break;
             case DamageResult.TookDamage:
             case DamageResult.Death:
                 hud_.GetEnemySpriteObj().transform.GetComponent<Animator>().SetTrigger("TakeHit");
@@ -180,23 +195,29 @@ public class BattleController : MonoBehaviour
 
     public IEnumerator DoEnemyTurn()
     {
+        yield return new WaitForSeconds(2.0f);
         Debug.Log(">>> Enemy turn!");
         state_ = BattleState.kEnemyTurn;
         var ability = enemy_unit_.GetBattleCreature().GetRandAbility(); //do a random ability
         if (ability != null)
         {
+            enemy_unit_.GetBattleCreature().SpendMP(ability);
             enemy_unit_.GetBattleCreature().DealDamage(ability);
             Animator animator = hud_.GetEnemySpriteObj().transform.GetComponent<Animator>();
             string anim_state = (enemy_unit_.GetBattleCreature().GetBaseStats().GetAnimString(ability));
             animator.SetTrigger(anim_state);
             if(ability.GetBase().GetAbilityType() != AbilityType.HealHp)
-                hud_.UpdateCombatLog("Enemys's " + enemy_unit_.base_.GetName() + " used " + ability.GetBase().GetName() + " on player's " + player_unit_.base_.GetName());
+                hud_.UpdateCombatLog("Enemy's " + enemy_unit_.base_.GetName() + " used " + ability.GetBase().GetName() + " on player's " + player_unit_.base_.GetName());
             else
-                hud_.UpdateCombatLog("Enemys's " + enemy_unit_.base_.GetName() + " used " + ability.GetBase().GetName() + " on it's self!");
+                hud_.UpdateCombatLog("Enemy's " + enemy_unit_.base_.GetName() + " used " + ability.GetBase().GetName() + " on itself!");
             yield return new WaitForSeconds(1.0f);
             DamageResult dam_result = player_unit_.GetBattleCreature().TakeDamage(ability, enemy_unit_.GetBattleCreature());
             switch (dam_result)
             {
+                case DamageResult.MissedDamage:
+                    hud_.UpdateCombatLog("Enemy's " + enemy_unit_.base_.GetName() + " MISSSED!");
+                    yield return new WaitForSeconds(1.0f);
+                    break;
                 case DamageResult.TookDamage:
                 case DamageResult.Death:
                     hud_.GetPlayerSpriteObj().transform.GetComponent<Animator>().SetTrigger("TakeHit");

@@ -45,7 +45,7 @@ public class CreatureManager : MonoBehaviour
         int tempint = Random.Range(0, table.GetTable().Count);
         Debug.Log(tempint);
         temp.base_ = table.GetCreature(tempint);
-        temp.level_ = Random.Range(0, 17);
+        temp.level_ = Random.Range(5, 17);
         temp.MakeNewCreature();
 
         return temp;
