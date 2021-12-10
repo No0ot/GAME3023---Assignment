@@ -27,9 +27,11 @@ MonoBehaviour:
   - ability_base_: {fileID: 11400000, guid: ccd020fa9a886f749b7c4d0a59c3f57c, type: 2}
     level_: 1
   - ability_base_: {fileID: 11400000, guid: d1b1ab140164e0c409c3f1c53e6388c2, type: 2}
-    level_: 5
+    level_: 7
   - ability_base_: {fileID: 11400000, guid: d92930a9a241d4f409dc6fc00ecc2fff, type: 2}
     level_: 10
+  - ability_base_: {fileID: 11400000, guid: 65ff61a76a5168741aed95ce01ccc12a, type: 2}
+    level_: 20
   anim_dict_:
   - anim_type: 0
     anim_state: Idle
